@@ -1,0 +1,78 @@
+Loading of level "level0.tmx" okay! Size: 40x40 Load time: 2.30
+ObjectSpawned: gameObjectType=HomeBase
+ObjectSpawned: gameObjectType=HomeBase
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=HomeBase
+ObjectSpawned: gameObjectType=HomeBase
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Soldier
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Robot
+ObjectSpawned: gameObjectType=Dynamite
+ObjectSpawned: gameObjectType=Dynamite
+onGameStarted
+onGameStarted
+ItemPicked: gameObjectType=Dynamite, team=0
+ItemPicked: gameObjectType=Dynamite, team=0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 50.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 45.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 90.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 90.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 40.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 40.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=1) ZeroHealth.
+Soldier(team=1) ZeroHealth.
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 50.0
+ObjectDeleted: gameObjectType=Soldier
+ObjectDeleted: gameObjectType=Soldier
+Robot(team=1) TakingDamage: fromObject=Missile. New health: 50.0
+Robot(team=1) TakingDamage: fromObject=Missile. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 25.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 25.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 20.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 20.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 15.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 15.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 10.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 10.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
+Soldier(team=0) ZeroHealth.
+Soldier(team=0) ZeroHealth.
+ObjectDeleted: gameObjectType=Soldier
+ObjectDeleted: gameObjectType=Soldier
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New

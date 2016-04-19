@@ -1,0 +1,16 @@
+﻿Build started 18.4.2016 10:13:07.
+     1>Project "D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\TmxMapViewer.vcxproj" on node 6 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\yam2d\\engine\include\ /ID:\yam2d\\engine\external\ /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt mapviewer.cpp
+         mapviewer.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\..\bin\TmxMapViewer.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:D:\yam2d\\engine\lib\win32 libEGL.lib libGLES_cm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\..\bin\TmxMapViewer.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\..\bin\TmxMapViewer.lib" /MACHINE:X86 /SAFESEH Release\mapviewer.obj
+         D:\Examples\AIGameFramework\yam2d\engine\lib\win32_vs13\Release\yam2d.lib
+         Generating code
+         Finished generating code
+         TmxMapViewer.vcxproj -> D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\..\bin\TmxMapViewer.exe
+     1>Done Building Project "D:\Examples\AIGameFramework\yam2d\Tools\TmxMapViewer\build\TmxMapViewer.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.86

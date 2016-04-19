@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="60">
+ <tileset firstgid="1" source="WarGame.tsx"/>
+ <layer name="Ground" width="40" height="40">
+  <properties>
+   <property name="static" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztl9tOwzAMQM294z4YsAegeUr3RPf/XzdHilVj5dL0RpH8cLROWuNTx7WXHQC8rJQ35A75Xikb9VM/9VO/hfzOkPMCLpBr5CZCNXDNmN8Wyvr7K/KOfETYD1wz5BfKQ7XAHqbicj+ehyvkCXlewO/Rx7oUeQ/tr0Uado/zM+w5a4/1n7G6kxz8OtZfU35MIFYd2V8O5XLP/GidKaB9aUWsMf0l53dk101Pv9L+MsZvSP7G+h2FX81iGJGzEFTPMs/cr834fUK/Xpnqc6XwWkv17y/kNsESs2+TcVi73w76zZrUnC2Fz6XU/Mudj3jtuvfjB7o6pz6dej/c/fL9cN/5+9Fkcvuf+0uJH+81ZmY/qrUKuh44R/6MiJXzczXVwu+ZbaHrf1Rz7jeuFvv2u8bT+jWo/1kRq/brxvzoWR4K92EM5HcfyKP0kzMi9J9ialIx9fwx3fljjaif+qmf+s3plzof/TXufHQC9LaS6A==
+  </data>
+ </layer>
+ <objectgroup name="GroundTypeColliders" opacity="0.5">
+  <object id="4" name="Dirt" type="DirtTrigger" x="352" y="448" width="576" height="128"/>
+  <object id="6" name="Wall" type="Wall" x="0" y="16" width="16" height="1248"/>
+  <object id="8" name="Wall" type="Wall" x="1264" y="16" width="16" height="1248"/>
+  <object id="9" name="Wall" type="Wall" x="0" y="0" width="1280" height="16"/>
+  <object id="10" name="Wall" type="Wall" x="0" y="1264" width="1280" height="16"/>
+  <object id="13" name="Wall" type="Wall" x="1040" y="592" width="224" height="96"/>
+  <object id="14" name="Wall" type="Wall" x="16" y="592" width="224" height="96"/>
+  <object id="15" name="Sand" type="SandTrigger" x="16" y="16" width="1248" height="288"/>
+  <object id="17" name="Sand" type="SandTrigger" x="16" y="976" width="1248" height="288"/>
+  <object id="18" name="Sand" type="SandTrigger" x="16" y="944" width="96" height="32"/>
+  <object id="19" name="Sand" type="SandTrigger" x="16" y="304" width="96" height="32"/>
+  <object id="20" name="Sand" type="SandTrigger" x="1168" y="304" width="96" height="32"/>
+  <object id="21" name="Sand" type="SandTrigger" x="1168" y="944" width="96" height="32"/>
+  <object id="22" name="Sand" type="SandTrigger" x="352" y="336" width="576" height="112"/>
+  <object id="23" name="Sand" type="SandTrigger" x="352" y="832" width="576" height="112"/>
+  <object id="24" name="Sand" type="SandTrigger" x="16" y="336" width="336" height="256"/>
+  <object id="25" name="Sand" type="SandTrigger" x="16" y="688" width="336" height="256"/>
+  <object id="26" name="Sand" type="SandTrigger" x="928" y="688" width="336" height="256"/>
+  <object id="27" name="Sand" type="SandTrigger" x="928" y="336" width="336" height="256"/>
+  <object id="29" name="Sand" type="SandTrigger" x="240" y="592" width="800" height="96"/>
+  <object id="30" name="Dirt" type="DirtTrigger" x="352" y="704" width="576" height="128"/>
+  <object id="31" name="Sand" type="SandTrigger" x="352" y="576" width="576" height="16"/>
+  <object id="32" name="Sand" type="SandTrigger" x="352" y="688" width="576" height="16"/>
+  <object id="53" name="Wall" type="Wall" x="112" y="944" width="384" height="32"/>
+  <object id="55" name="Wall" type="Wall" x="784" y="944" width="384" height="32"/>
+  <object id="56" name="Wall" type="Wall" x="784" y="304" width="384" height="32"/>
+  <object id="57" name="Wall" type="Wall" x="112" y="304" width="384" height="32"/>
+  <object id="58" name="Dirt" type="DirtTrigger" x="496" y="304" width="288" height="32"/>
+  <object id="59" name="Dirt" type="DirtTrigger" x="496" y="944" width="288" height="32"/>
+ </objectgroup>
+ <objectgroup name="ObjectSpawns" opacity="0.2">
+  <object id="1" name="BotSpawn1" type="BotSpawn" x="96" y="32" width="1088" height="224"/>
+  <object id="2" name="BotSpawn0" type="BotSpawn" x="96" y="1024" width="1088" height="224"/>
+  <object id="3" name="GoalPosition" type="GoalPosition" x="416" y="512" width="448" height="256"/>
+ </objectgroup>
+ <objectgroup name="Objects"/>
+</map>
