@@ -23,6 +23,8 @@ public:
 		, m_predictionDistance(0.0f)
 		, m_aimTolerance(0.0f)
 		, waitCounter(0)
+		, debugLayer(nullptr)
+		, moveSpeedLayer(nullptr)
 	{
 	}
 
@@ -124,11 +126,30 @@ public:
 			enemyForwardDir.y = sinf(rotation);
 			autoUsePrimaryWeapon(m_gameObjectToShoot->getPosition() + m_predictionDistance*enemyForwardDir, m_aimTolerance);
 		}
+
+		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
+		size_t posX = getGameObject()->getPosition().x;
+		size_t posY = getGameObject()->getPosition().y;
+		if (debugLayer != nullptr)
+		{
+			// debug draw testi
+			debugLayer->setPixel(posX, posY, RED_PIXEL);
+		}		
 	}
 
 	float getDistanceToDestination() const
 	{
 		return m_distanceToDestination;
+	}
+
+	void setDebugLayer(AIMapLayer* layer)
+	{
+		this->debugLayer = layer;
+	}
+
+	void setMoveSpeedLayer(AIMapLayer* layer)
+	{
+		this->moveSpeedLayer = layer;
 	}
 
 private:
@@ -141,6 +162,9 @@ private:
 	float m_predictionDistance;
 	float m_aimTolerance;
 	int waitCounter;
+
+	AIMapLayer* debugLayer;
+	AIMapLayer* moveSpeedLayer;
 };
 
 
@@ -226,10 +250,24 @@ public:
 			m_directMoverAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
 		}
 
+		AIMapLayer* debugMap = environmentInfo->getAILayer("debug");
+		uint8_t TP_PIXEL[4] = { 0x00, 0x00, 0x00, 0x00 };
+		for (size_t y = 0; y < debugMap->getHeight(); ++y)
+		{
+			for (size_t x = 0; x < debugMap->getWidth(); ++x)
+			{
+				debugMap->setPixel(x, y, TP_PIXEL);
+			}
+		}
+
+		AIMapLayer* moveMap = environmentInfo->getAILayer("GroundMoveSpeed");
+
 		for (size_t i = 0; i < m_myAIControllers.size(); ++i)
 		{
 			m_myAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
-		}
+			m_myAIControllers[i]->setDebugLayer(debugMap);
+			m_myAIControllers[i]->setMoveSpeedLayer(moveMap);
+		}		
 	}
 
 
@@ -442,8 +480,8 @@ int main(int argc, char *argv[])
 	//app.disableLayer("Ground");
 	app.disableLayer("ObjectSpawns");
 	app.disableLayer("GroundTypeColliders");
-	app.disableLayer("GroundMoveSpeed");
-//	app.setLayerOpacity("GroundMoveSpeed", 0.7f); 
+//	app.disableLayer("GroundMoveSpeed");
+	app.setLayerOpacity("GroundMoveSpeed", 0.7f);
 	app.setDefaultGame("level0.tmx", "MyAI", "MyAI", 4);
 //	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
