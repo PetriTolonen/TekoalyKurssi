@@ -12,6 +12,9 @@
 #include "PathFindingApp.h"
 #include "slm/vec2.h"
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 class MyAI : public CharacterController
 {
 public:
@@ -27,7 +30,11 @@ public:
 		, debugLayer(nullptr)
 		, moveSpeedLayer(nullptr)
 		, indexOfCurrentWaypoint(0)
-	{
+		, stuckTimer(0)
+		, imStuck(false)
+		, stuckRandX(0)
+		, stuckRandY(0)
+	{	  
 		myPathFinder = new PathFindingApp();
 	}
 
@@ -35,7 +42,7 @@ public:
 	{
 		if (myPathFinder->getWaypoints().size() > 0)
 		{
-			if (myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x < 1.0f &&  myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y < 1.0f)
+			if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < 0.7f &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < 0.7f)
 			{
 				if (indexOfCurrentWaypoint > 0)
 				{
@@ -51,7 +58,7 @@ public:
 		{
 			myPathFinder->getWaypoints().clear();
 			myPathFinder->update(getGameObject()->getPosition(), m_gameObjectToGo->getPosition());
-			indexOfCurrentWaypoint = myPathFinder->getWaypoints().size() - 1;
+			indexOfCurrentWaypoint = myPathFinder->getWaypoints().size() - 2;
 		}		
 	}
 
@@ -117,11 +124,10 @@ public:
 		m_aimTolerance = 0.0f;
 	}
 
-	// This virtual method is automatically called byt map/layer, when update is called from main.cpp
+	// This virtual method is automatically called by map/layer, when update is called from main.cpp
 	virtual void update(float deltaTime)
 	{		
 		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-		uint8_t TP_PIXEL[4] = { 0x00, 0x00, 0x00, 0x00 };
 		
 		for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
 		{
@@ -142,7 +148,14 @@ public:
 			// Move to position
 			if (indexOfCurrentWaypoint > 0)
 			{
-				m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y), m_reachTolerance);
+				if (!imStuck)
+				{
+					m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - 0.1f, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - 0.1f), m_reachTolerance);
+				}
+				else
+				{
+					m_distanceToDestination = moveDirectToPosition(slm::vec2(stuckRandX, stuckRandY), m_reachTolerance);
+				}
 			}
 		}
 
@@ -167,7 +180,37 @@ public:
 			autoUsePrimaryWeapon(m_gameObjectToShoot->getPosition() + m_predictionDistance*enemyForwardDir, m_aimTolerance);
 		}
 
+		stuckCheck();
 		updateCurrentWaypoint();
+	}
+
+	void stuckCheck()
+	{
+		if (stuckTimer == 0)
+		{
+			oldPos = getGameObject()->getPosition();
+		}		
+		stuckTimer++;
+
+		if (stuckTimer > 200)
+		{
+			slm::vec2 currentPos = getGameObject()->getPosition();
+			if (abs(oldPos.x - currentPos.x) < 0.1f && abs(oldPos.y - currentPos.y) < 0.1f)
+			{
+				imStuck = true;
+				srand(time(NULL));
+				stuckRandX = rand() % 6 + 0;
+				stuckRandY = rand() % 6 + 0;
+				
+				stuckRandX = oldPos.x + stuckRandX - 3;
+				stuckRandY = oldPos.y + stuckRandY - 3;
+			}
+			else
+			{
+				imStuck = false;
+			}
+			stuckTimer = 0;
+		}		
 	}
 
 	float getDistanceToDestination() const
@@ -203,6 +246,12 @@ private:
 	yam2d::Ref<PathFindingApp> myPathFinder;
 
 	int indexOfCurrentWaypoint;
+	int stuckTimer;
+	slm::vec2 oldPos;
+	bool imStuck;
+
+	int stuckRandX;
+	int	stuckRandY;
 };
 
 
@@ -454,12 +503,12 @@ public:
 			const yam2d::GameObject* dynamite = environmentInfo->getDynamite();
 			for (size_t i = 0; i < m_directMoverAIControllers.size(); ++i)
 			{
-				m_directMoverAIControllers[i]->setMoveTargetObject(dynamite, 0.5f);
+				m_directMoverAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
 			}
 
 			for (size_t i = 0; i < m_myAIControllers.size(); ++i)
 			{
-				m_myAIControllers[i]->setMoveTargetObject(dynamite, 0.5f);
+				m_myAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
 				m_myAIControllers[i]->setNewPath();
 			}
 		}
@@ -525,7 +574,7 @@ int main(int argc, char *argv[])
 	app.disableLayer("GroundTypeColliders");
 //	app.disableLayer("GroundMoveSpeed");
 	app.setLayerOpacity("GroundMoveSpeed", 0.7f);
-	app.setDefaultGame("level0.tmx", "MyAI", "DirectMoverAI", 2);
+	app.setDefaultGame("level2.tmx", "MyAI", "AutoAttackFlagCarryingBot", 4);
 //	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
