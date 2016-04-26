@@ -6,18 +6,20 @@
 #include <Sprite.h>
 #include <SpriteBatch.h>
 #include <SpriteSheet.h>
+#include <slm/vec2.h>
 #include <AIMapLayer.h>
-
 
 class PathFindingApp : public yam2d::Object
 {
 // Public typedefs and methods:
 public:
-	PathFindingApp(AIMapLayer* mapLayer);
+	PathFindingApp();
 	virtual ~PathFindingApp();
 
 	// Updates the app
 	bool update(float deltaTime, slm::vec2 AIpos ,slm::vec2 targetPos);
+
+	void setMoveLayer(AIMapLayer* mapLayer);
 
 	std::vector<slm::vec2> getWaypoints();
 

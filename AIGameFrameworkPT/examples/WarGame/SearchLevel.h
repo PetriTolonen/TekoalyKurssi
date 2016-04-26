@@ -4,6 +4,7 @@
 #include <vector>
 #include <Texture.h>
 #include <StreamTexture.h>
+#include "slm/vec2.h"
 #include <AIMapLayer.h>
 
 namespace
@@ -22,7 +23,11 @@ namespace
 
 	bool isGreen(unsigned char* p)
 	{
-		return p[1] > 200;
+		if (p[1] == 0)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	bool isBlue(unsigned char* p)

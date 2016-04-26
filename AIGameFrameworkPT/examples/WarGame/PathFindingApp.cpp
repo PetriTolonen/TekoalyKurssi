@@ -34,9 +34,8 @@
 //	}
 //}
 
-PathFindingApp::PathFindingApp(AIMapLayer* mapLayer)
+PathFindingApp::PathFindingApp()
 : m_batch()
-, mapLayer(mapLayer)
 {
 	m_batch = new yam2d::SpriteBatchGroup();
 
@@ -51,6 +50,11 @@ PathFindingApp::~PathFindingApp()
 {
 }
 
+
+void PathFindingApp::setMoveLayer(AIMapLayer* mapLayer)
+{
+	this->mapLayer = mapLayer;
+}
 
 bool PathFindingApp::update(float deltaTime, slm::vec2 AIpos, slm::vec2 targetPos)
 {	
@@ -175,7 +179,7 @@ bool PathFindingApp::doPathfinding(int startX, int startY, int endX, int endY)
 
 	while (result != 0)
 	{
-		setPathColor(mapLayer, result->pos.first, result->pos.second);
+		//setPathColor(mapLayer, result->pos.first, result->pos.second);
 		wayPoints.push_back(slm::vec2(result->pos.first, result->pos.second));
 		result = result->prevNode;
 	}

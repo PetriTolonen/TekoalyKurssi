@@ -9,6 +9,8 @@
 
 #include "ExampleBehaviours.h"
 #include "JoystickController.h"
+#include "PathFindingApp.h"
+#include "slm/vec2.h"
 
 class MyAI : public CharacterController
 {
@@ -26,6 +28,7 @@ public:
 		, debugLayer(nullptr)
 		, moveSpeedLayer(nullptr)
 	{
+		myPathFinder = new PathFindingApp();
 	}
 
 	virtual ~MyAI(void)
@@ -55,7 +58,7 @@ public:
 	}
 
 	void setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
-	{
+	{		
 		if (gameObjectToGo == 0)
 		{
 			resetMoveTargetObject();
@@ -93,6 +96,24 @@ public:
 	// This virtual method is automatically called byt map/layer, when update is called from main.cpp
 	virtual void update(float deltaTime)
 	{
+		if (m_gameObjectToGo != nullptr)
+		{
+			myPathFinder->update(deltaTime, getGameObject()->getPosition(), m_gameObjectToGo->getPosition());
+
+			uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
+
+			for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
+			{
+				size_t posX = myPathFinder->getWaypoints()[i].x + 0.5f;
+				size_t posY = myPathFinder->getWaypoints()[i].y + 0.5f;
+				if (debugLayer != nullptr)
+				{
+					// debug draw testi
+					debugLayer->setPixel(posX, posY, RED_PIXEL);
+				}
+			}
+		}
+		
 		waitCounter++;
 		// Call update to base class
 		CharacterController::update(deltaTime);
@@ -125,16 +146,7 @@ public:
 			enemyForwardDir.x = cosf(rotation);
 			enemyForwardDir.y = sinf(rotation);
 			autoUsePrimaryWeapon(m_gameObjectToShoot->getPosition() + m_predictionDistance*enemyForwardDir, m_aimTolerance);
-		}
-
-		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-		size_t posX = getGameObject()->getPosition().x + 0.5f;
-		size_t posY = getGameObject()->getPosition().y + 0.5f;
-		if (debugLayer != nullptr)
-		{
-			// debug draw testi
-			debugLayer->setPixel(posX, posY, RED_PIXEL);
-		}
+		}		
 	}
 
 	float getDistanceToDestination() const
@@ -150,6 +162,8 @@ public:
 	void setMoveSpeedLayer(AIMapLayer* layer)
 	{
 		this->moveSpeedLayer = layer;
+
+		myPathFinder->setMoveLayer(moveSpeedLayer);
 	}
 
 private:
@@ -165,6 +179,8 @@ private:
 
 	AIMapLayer* debugLayer;
 	AIMapLayer* moveSpeedLayer;
+
+	yam2d::Ref<PathFindingApp> myPathFinder;
 };
 
 
