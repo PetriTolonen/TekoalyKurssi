@@ -49,6 +49,7 @@ public:
 	{
 		if (m_gameObjectToGo != nullptr)
 		{
+			myPathFinder->getWaypoints().clear();
 			myPathFinder->update(getGameObject()->getPosition(), m_gameObjectToGo->getPosition());
 			indexOfCurrentWaypoint = myPathFinder->getWaypoints().size() - 1;
 		}		
@@ -120,7 +121,8 @@ public:
 	virtual void update(float deltaTime)
 	{		
 		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-
+		uint8_t TP_PIXEL[4] = { 0x00, 0x00, 0x00, 0x00 };
+		
 		for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
 		{
 			size_t posX = myPathFinder->getWaypoints()[i].x;
@@ -300,7 +302,7 @@ public:
 
 		for (size_t i = 0; i < m_myAIControllers.size(); ++i)
 		{
-			m_myAIControllers[i]->setMoveTargetObject(dynamite, 0.5f);
+			m_myAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
 			m_myAIControllers[i]->setDebugLayer(debugMap);
 			m_myAIControllers[i]->setMoveSpeedLayer(moveMap);
 			m_myAIControllers[i]->setNewPath();
@@ -400,12 +402,12 @@ public:
 				const yam2d::GameObject* homeBase = environmentInfo->getEnemyHomeBase(this);
 				for (size_t i = 0; i < m_directMoverAIControllers.size(); ++i)
 				{
-					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 0.5f);
+					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 				}
 
 				for (size_t i = 0; i < m_myAIControllers.size(); ++i)
 				{
-					m_myAIControllers[i]->setMoveTargetObject(homeBase, 0.5f);
+					m_myAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 					m_myAIControllers[i]->setNewPath();
 				}
 			}
@@ -416,11 +418,11 @@ public:
 				const yam2d::GameObject* homeBase = environmentInfo->getMyHomeBase(this);
 				for (size_t i = 0; i < m_directMoverAIControllers.size(); ++i)
 				{
-					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 0.5f);
+					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 				}
 				for (size_t i = 0; i < m_myAIControllers.size(); ++i)
 				{
-					m_myAIControllers[i]->setMoveTargetObject(homeBase, 0.5f);
+					m_myAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 					m_myAIControllers[i]->setNewPath();
 				}
 
@@ -523,7 +525,7 @@ int main(int argc, char *argv[])
 	app.disableLayer("GroundTypeColliders");
 //	app.disableLayer("GroundMoveSpeed");
 	app.setLayerOpacity("GroundMoveSpeed", 0.7f);
-	app.setDefaultGame("level0.tmx", "MyAI", "MyAI", 2);
+	app.setDefaultGame("level0.tmx", "MyAI", "DirectMoverAI", 2);
 //	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
