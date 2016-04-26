@@ -1,43 +1,75 @@
-Loading of level "level0.tmx" okay! Size: 40x40 Load time: 2.27
+Loading of level "level0.tmx" okay! Size: 40x40 Load time: 2.35
 ObjectSpawned: gameObjectType=HomeBase
 ObjectSpawned: gameObjectType=HomeBase
 ObjectSpawned: gameObjectType=Soldier
 ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Robot
 ObjectSpawned: gameObjectType=HomeBase
 ObjectSpawned: gameObjectType=HomeBase
 ObjectSpawned: gameObjectType=Soldier
 ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Soldier
-ObjectSpawned: gameObjectType=Robot
-ObjectSpawned: gameObjectType=Robot
 ObjectSpawned: gameObjectType=Dynamite
 ObjectSpawned: gameObjectType=Dynamite
 onGameStarted
 onGameStarted
 ItemPicked: gameObjectType=Dynamite, team=0
 ItemPicked: gameObjectType=Dynamite, team=0
-Soldier(team=1) TakingDamage: fromObject=Missile. New health: 50.0
-Soldier(team=1) TakingDamage: fromObject=Missile. New health: 50.0
-Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
-Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 90.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 90.0
-Robot(team=0) TakingDamage: fromObject=Missile. New health: 50.0
-Robot(team=0) TakingDamage: fromObject=Missile. New health: 50.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 85.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 85.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 80.0
 Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 80.0
-Robot(team=1) TakingDamage: fromObject=Bullet. New health: 95.0
-Robot(team=1) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 75.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 75.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 70.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 70.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 65.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 65.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 60.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 60.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 55.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 55.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 25.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 25.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 20.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 20.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 15.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 15.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 10.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 10.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
+Soldier(team=0) ZeroHealth.
+Soldier(team=0) ZeroHealth.
+ItemDropped: gameObjectType=Dynamite
+ItemDropped: gameObjectType=Dynamite
+ItemPicked: gameObjectType=Dynamite, team=1
+ItemPicked: gameObjectType=Dynamite, team=1
+ObjectDeleted: gameObjectType=Soldier
+ObjectDeleted: gameObjectType=Soldier
+ObjectDeleted: gameObjectType=Dynamite
+ObjectDeleted: gameObjectType=Dynamite
+Soldier(team=1) ZeroHealth.
+Soldier(team=1) ZeroHealth.
+ObjectDeleted: gameObjectType=HomeBase
+ObjectDeleted: gameObjectType=HomeBase
+ObjectDeleted: gameObjectType=Soldier
+ObjectDeleted: gameObjectType=Soldier
+onGameOver: BotSpawn1 wins!
+onGameOver: BotSpawn1 wins!
+ObjectDeleted: gameObjectType=GameOverText
+ObjectDeleted: gameObjectType=GameOverText

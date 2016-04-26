@@ -56,63 +56,27 @@ void PathFindingApp::setMoveLayer(AIMapLayer* mapLayer)
 	this->mapLayer = mapLayer;
 }
 
-bool PathFindingApp::update(float deltaTime, slm::vec2 AIpos, slm::vec2 targetPos)
+bool PathFindingApp::update(slm::vec2 AIpos, slm::vec2 targetPos)
 {	
-	if (mapLayer == 0)
+	// Find start and end
+	int startX, startY, endX, endY;
+	startX = startY = endX = endY = -1;
+
+	startX = AIpos.x;
+	startY = AIpos.y;
+
+	endX = targetPos.x;
+	endY = targetPos.y;
+
+	// Update path find!! Set m_searchCompleted to true, when path found, so the texture data is updated.
+	if (startX >= 0 && startY >= 0 && endX >= 0 && endY >= 0)
 	{
-		m_searchCompleted = false;
+		m_searchCompleted = doPathfinding(startX, startY, endX, endY);
 	}
-
-	//if (!m_searchCompleted)
-	//{
-	//	// Find start and end
-	//	int startX, startY, endX, endY;
-	//	startX = startY = endX = endY = -1;
-	//	for (int y = 0; y < mapLayer->getHeight(); ++y)
-	//	{
-	//		for (int x = 0; x < mapLayer->getWidth(); ++x)
-	//		{
-	//			unsigned char* p = mapLayer->getPixel(x, y);
-	//			if (isRed(p))
-	//			{
-	//				// Red pixel
-	//				startX = x;
-	//				startY = y;
-	//			}
-	//			else if (isGreen(p))
-	//			{
-	//				// White pixel
-	//			}
-	//			else if (isBlue(p))
-	//			{
-	//				// Blue pixel
-	//				endX = x;
-	//				endY = y;
-	//			}
-	//		}
-	//	}
-	if (!m_searchCompleted)
+	else
 	{
-		// Find start and end
-		int startX, startY, endX, endY;
-		startX = startY = endX = endY = -1;
-
-		startX = AIpos.x;
-		startY = AIpos.y;
-
-		endX = targetPos.x;
-		endY = targetPos.y;
-
-		// Update path find!! Set m_searchCompleted to true, when path found, so the texture data is updated.
-		if (startX >= 0 && startY >= 0 && endX >= 0 && endY >= 0)
-		{
-			m_searchCompleted = doPathfinding(startX, startY, endX, endY);
-		}
-		else
-		{
-			assert(0);
-		}
-	} // if (!m_searchCompleted)
+		return false;
+	}
 
 	return true;
 }

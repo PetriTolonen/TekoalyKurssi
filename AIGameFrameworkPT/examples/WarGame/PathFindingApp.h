@@ -17,7 +17,7 @@ public:
 	virtual ~PathFindingApp();
 
 	// Updates the app
-	bool update(float deltaTime, slm::vec2 AIpos ,slm::vec2 targetPos);
+	bool update(slm::vec2 AIpos ,slm::vec2 targetPos);
 
 	void setMoveLayer(AIMapLayer* mapLayer);
 
