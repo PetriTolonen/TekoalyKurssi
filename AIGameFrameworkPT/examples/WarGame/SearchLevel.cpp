@@ -1,6 +1,6 @@
 #include "SearchLevel.h"
 
-SearchLevel::SearchLevel(yam2d::Texture* input) : inputTexture(input)
+SearchLevel::SearchLevel(AIMapLayer* input) : inputLayer(input)
 {
 
 }
@@ -27,12 +27,12 @@ float SearchLevel::GetH(const Position& fromPos, const Position& toPos)
 
 bool SearchLevel::isWalkable(int posX, int posY)
 {
-	if (posX < 0 || posY < 0 || posX >= inputTexture->getWidth() || posY >= inputTexture->getHeight())
+	if (posX < 0 || posY < 0 || posX >= inputLayer->getWidth() || posY >= inputLayer->getHeight())
 	{
 		return false;
 	}
-	unsigned char* pixel = inputTexture->getPixel(posX, posY);
-	bool isNotWalkable = isWhite(pixel);
+	unsigned char* pixel = inputLayer->getPixel(posX, posY);
+	bool isNotWalkable = isGreen(pixel);
 	return !isNotWalkable;
 }
 

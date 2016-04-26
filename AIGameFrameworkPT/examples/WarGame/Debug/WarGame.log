@@ -1,4 +1,4 @@
-﻿Build started 20.4.2016 14:04:49.
+﻿Build started 26.4.2016 10:42:52.
      1>Project "C:\Users\PetriTol\Desktop\TekalyGit\TekoalyKurssi\AIGameFrameworkPT\examples\WarGame\WarGame.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\PetriTol\Desktop\TekalyGit\TekoalyKurssi\AIGameFrameworkPT\examples\WarGame\../../sdk /IC:\Users\PetriTol\Desktop\TekalyGit\TekoalyKurssi\AIGameFrameworkPT\examples\WarGame\../../yam2d/engine/external /IC:\Users\PetriTol\Desktop\TekalyGit\TekoalyKurssi\AIGameFrameworkPT\examples\WarGame\../../yam2d/engine/include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -19,4 +19,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.99
+Time Elapsed 00:00:00.97

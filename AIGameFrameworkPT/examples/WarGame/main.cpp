@@ -128,13 +128,13 @@ public:
 		}
 
 		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-		size_t posX = getGameObject()->getPosition().x;
-		size_t posY = getGameObject()->getPosition().y;
+		size_t posX = getGameObject()->getPosition().x + 0.5f;
+		size_t posY = getGameObject()->getPosition().y + 0.5f;
 		if (debugLayer != nullptr)
 		{
 			// debug draw testi
 			debugLayer->setPixel(posX, posY, RED_PIXEL);
-		}		
+		}
 	}
 
 	float getDistanceToDestination() const
