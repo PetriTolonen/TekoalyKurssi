@@ -42,7 +42,7 @@ public:
 	{
 		if (myPathFinder->getWaypoints().size() > 0)
 		{
-			if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < 0.7f &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < 0.7f)
+			if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < 0.55f &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < 0.55f)
 			{
 				if (indexOfCurrentWaypoint > 0)
 				{
@@ -150,7 +150,7 @@ public:
 			{
 				if (!imStuck)
 				{
-					m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - 0.1f, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - 0.1f), m_reachTolerance);
+					m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - 0.5f, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y), m_reachTolerance);
 				}
 				else
 				{
@@ -204,6 +204,11 @@ public:
 				
 				stuckRandX = oldPos.x + stuckRandX - 3;
 				stuckRandY = oldPos.y + stuckRandY - 3;
+
+				if (indexOfCurrentWaypoint < myPathFinder->getWaypoints().size())
+				{
+					indexOfCurrentWaypoint++;
+				}
 			}
 			else
 			{
