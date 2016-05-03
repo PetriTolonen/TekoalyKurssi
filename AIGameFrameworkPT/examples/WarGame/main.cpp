@@ -235,7 +235,7 @@ public:
 
 				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
-					m_MyAIControllers[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.9f, 0.05f);
+					m_MyAIControllers[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.1f, 0.05f);
 					m_MyAIControllers[i]->setNewPath();
 				}
 			}
