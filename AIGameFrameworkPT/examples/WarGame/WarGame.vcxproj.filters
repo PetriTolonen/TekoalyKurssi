@@ -33,6 +33,9 @@
     <ClCompile Include="OpenList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PTAI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExampleBehaviours.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OpenList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PTAI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

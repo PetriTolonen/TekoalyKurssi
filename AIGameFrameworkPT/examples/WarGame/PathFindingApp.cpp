@@ -143,7 +143,6 @@ bool PathFindingApp::doPathfinding(int startX, int startY, int endX, int endY)
 
 	while (result != 0)
 	{
-		//setPathColor(mapLayer, result->pos.first, result->pos.second);
 		wayPoints.push_back(slm::vec2(result->pos.first, result->pos.second));
 		result = result->prevNode;
 	}

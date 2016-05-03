@@ -15,261 +15,13 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-class MyAI : public CharacterController
-{
-public:
-	MyAI(yam2d::GameObject* owner, GameController* gameController, BotType botType)
-		: CharacterController(owner, gameController, botType)
-		, m_gameObjectToGo(0)
-		, m_reachTolerance(0.0f)
-		, m_distanceToDestination(0.0f)
-		, m_collisionToHomeBase(false)
-		, m_gameObjectToShoot(0)
-		, m_predictionDistance(0.0f)
-		, m_aimTolerance(0.0f)
-		, debugLayer(nullptr)
-		, moveSpeedLayer(nullptr)
-		, indexOfCurrentWaypoint(0)
-		, stuckTimer(0)
-		, imStuck(false)
-		, stuckRandX(0)
-		, stuckRandY(0)
-	{	  
-		myPathFinder = new PathFindingApp();
-	}
-
-	void updateCurrentWaypoint()
-	{
-		if (myPathFinder->getWaypoints().size() > 0)
-		{
-			if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < 0.55f &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < 0.55f)
-			{
-				if (indexOfCurrentWaypoint > 0)
-				{
-					indexOfCurrentWaypoint--;
-				}				
-			}
-		}
-	}
-
-	void setNewPath()
-	{
-		if (m_gameObjectToGo != nullptr)
-		{
-			myPathFinder->getWaypoints().clear();
-			myPathFinder->update(getGameObject()->getPosition(), m_gameObjectToGo->getPosition());
-			indexOfCurrentWaypoint = myPathFinder->getWaypoints().size() - 2;
-		}		
-	}
-
-	virtual ~MyAI(void)
-	{
-	}
-
-	virtual void onMessage(const std::string& msgName, yam2d::Object* eventObject)
-	{
-		// Call onMessage to base class
-		CharacterController::onMessage(msgName, eventObject);
-
-		if (msgName == "Collision")
-		{
-			CollisionEvent* collisionEvent = dynamic_cast<CollisionEvent*>(eventObject);
-			assert(collisionEvent != 0);
-			assert(collisionEvent->getMyGameObject() == getGameObject());
-			yam2d::GameObject* otherGo = collisionEvent->getOtherGameObject();
-			std::string otherType = otherGo->getType();
-			if (otherType == "HomeBase")
-			{
-				if (hasItem())
-				{
-					dropItem1();
-				}
-			}
-		}
-	}
-
-	void setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
-	{		
-		if (gameObjectToGo == 0)
-		{
-			resetMoveTargetObject();
-			return;
-		}
-
-		m_gameObjectToGo = gameObjectToGo;
-		m_reachTolerance = reachTolerance;
-		m_distanceToDestination = slm::length(m_gameObjectToGo->getPosition() - getGameObject()->getPosition());
-		preferPickItem();
-	}
-
-	void resetMoveTargetObject()
-	{
-		m_gameObjectToGo = 0;
-		m_reachTolerance = 0.0f;
-		m_distanceToDestination = 0.0f;
-		stop();
-	}
-
-	void setTargetToShoot(const yam2d::GameObject* gameObjectToShoot, float predictionDistance, float aimTolerance)
-	{
-		m_gameObjectToShoot = gameObjectToShoot;
-		m_predictionDistance = predictionDistance;
-		m_aimTolerance = aimTolerance;
-	}
-
-	void resetTargetToShoot()
-	{
-		m_gameObjectToShoot = 0;
-		m_predictionDistance = 0.0f;
-		m_aimTolerance = 0.0f;
-	}
-
-	// This virtual method is automatically called by map/layer, when update is called from main.cpp
-	virtual void update(float deltaTime)
-	{		
-		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-		
-		for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
-		{
-			size_t posX = myPathFinder->getWaypoints()[i].x;
-			size_t posY = myPathFinder->getWaypoints()[i].y;
-			if (debugLayer != nullptr)
-			{
-				// debug draw testi
-				debugLayer->setPixel(posX, posY, RED_PIXEL);
-			}
-		}
-
-		// Call update to base class
-		CharacterController::update(deltaTime);
-
-		if (m_gameObjectToGo != 0)
-		{
-			// Move to position
-			if (indexOfCurrentWaypoint > 0)
-			{
-				if (!imStuck)
-				{
-					m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - 0.5f, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y), m_reachTolerance);
-				}
-				else
-				{
-					m_distanceToDestination = moveDirectToPosition(slm::vec2(stuckRandX, stuckRandY), m_reachTolerance);
-				}
-			}
-		}
-
-		// If has collided to home base, then drop bomb.
-		if (m_collisionToHomeBase)
-		{
-			// Obly if I has flag
-			if (hasItem())
-			{
-				dropItem1();
-			}
-
-			m_collisionToHomeBase = false;
-		}
-
-		if (m_gameObjectToShoot != 0)
-		{
-			float rotation = m_gameObjectToShoot->getRotation();
-			slm::vec2 enemyForwardDir;
-			enemyForwardDir.x = cosf(rotation);
-			enemyForwardDir.y = sinf(rotation);
-			autoUsePrimaryWeapon(m_gameObjectToShoot->getPosition() + m_predictionDistance*enemyForwardDir, m_aimTolerance);
-		}
-
-		stuckCheck();
-		updateCurrentWaypoint();
-	}
-
-	void stuckCheck()
-	{
-		if (stuckTimer == 0)
-		{
-			oldPos = getGameObject()->getPosition();
-		}		
-		stuckTimer++;
-
-		if (stuckTimer > 200)
-		{
-			slm::vec2 currentPos = getGameObject()->getPosition();
-			if (abs(oldPos.x - currentPos.x) < 0.1f && abs(oldPos.y - currentPos.y) < 0.1f)
-			{
-				imStuck = true;
-				srand(time(NULL));
-				stuckRandX = rand() % 6 + 0;
-				stuckRandY = rand() % 6 + 0;
-				
-				stuckRandX = oldPos.x + stuckRandX - 3;
-				stuckRandY = oldPos.y + stuckRandY - 3;
-
-				if (indexOfCurrentWaypoint < myPathFinder->getWaypoints().size())
-				{
-					indexOfCurrentWaypoint++;
-				}
-			}
-			else
-			{
-				imStuck = false;
-			}
-			stuckTimer = 0;
-		}		
-	}
-
-	float getDistanceToDestination() const
-	{
-		return m_distanceToDestination;
-	}
-
-	void setDebugLayer(AIMapLayer* layer)
-	{
-		this->debugLayer = layer;
-	}
-
-	void setMoveSpeedLayer(AIMapLayer* layer)
-	{
-		this->moveSpeedLayer = layer;
-
-		myPathFinder->setMoveLayer(moveSpeedLayer);
-	}
-
-private:
-	const yam2d::GameObject* m_gameObjectToGo;
-	float m_reachTolerance;
-	float m_distanceToDestination;
-	bool m_collisionToHomeBase;
-
-	const yam2d::GameObject* m_gameObjectToShoot;
-	float m_predictionDistance;
-	float m_aimTolerance;
-
-	AIMapLayer* debugLayer;
-	AIMapLayer* moveSpeedLayer;
-
-	yam2d::Ref<PathFindingApp> myPathFinder;
-
-	int indexOfCurrentWaypoint;
-	int stuckTimer;
-	slm::vec2 oldPos;
-	bool imStuck;
-
-	int stuckRandX;
-	int	stuckRandY;
-};
-
-
-
-
-
-
+#include "PTAI.h"
 
 class MyPlayerController : public PlayerController
 {
 private:
 	std::string m_myTeamName;
-	std::vector< yam2d::Ref<MyAI> > m_myAIControllers;
+	std::vector< yam2d::Ref<PTAI> > m_MyAIControllers;
 	std::vector< yam2d::Ref<JoystickController> > m_joystickControllers;
 	std::vector< yam2d::Ref<DirectMoverAI> > m_directMoverAIControllers;
 	std::vector< yam2d::Ref<AutoAttackFlagCarryingBot> > m_autoAttackFlagCarryingBots;
@@ -308,11 +60,11 @@ public:
 			return new CharacterController(ownerGameObject, gameController, type);
 		}
 
-		if (playerName == "MyAI")
+		if (playerName == "PTAI")
 		{
-			MyAI* myAI = new MyAI(ownerGameObject, gameController, type);
-			m_myAIControllers.push_back(myAI);
-			return myAI;
+			PTAI* PtAI = new PTAI(ownerGameObject, gameController, type);
+			m_MyAIControllers.push_back(PtAI);
+			return PtAI;
 		}
 
 		if (playerName == "DirectMoverAI")
@@ -354,12 +106,13 @@ public:
 
 		AIMapLayer* moveMap = environmentInfo->getAILayer("GroundMoveSpeed");
 
-		for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+		for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 		{
-			m_myAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
-			m_myAIControllers[i]->setDebugLayer(debugMap);
-			m_myAIControllers[i]->setMoveSpeedLayer(moveMap);
-			m_myAIControllers[i]->setNewPath();
+			m_MyAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
+			m_MyAIControllers[i]->setDebugLayer(debugMap);
+			m_MyAIControllers[i]->setMoveSpeedLayer(moveMap);
+			m_MyAIControllers[i]->setNewPath();
+			m_MyAIControllers[i]->startMoving();
 		}		
 	}
 
@@ -378,10 +131,10 @@ public:
 			m_autoAttackFlagCarryingBots[i]->resetTargetToShoot();
 		}
 
-		for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+		for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 		{
-			m_myAIControllers[i]->resetMoveTargetObject();
-			m_myAIControllers[i]->resetTargetToShoot();
+			m_MyAIControllers[i]->resetMoveTargetObject();
+			m_MyAIControllers[i]->resetTargetToShoot();
 		}
 	}
 
@@ -425,10 +178,10 @@ public:
 				&& gameObject->getType() != "GrenadeExplosion")
 			{
 				// Prints: Soldier, Robot, HomeBase, Flag
-				if (gameObject->getProperties().hasProperty("team"))
+				if (gameObject->getProperties().hasProperty("teamIndex"))
 				{
-					std::string teamName = gameObject->getProperties()["team"].get<std::string>();
-					yam2d::esLogMessage("%s: gameObjectType=%s, teamName=%s", eventName.c_str(), gameObject->getType().c_str(), teamName.c_str());
+					int teamName = gameObject->getProperties()["teamIndex"].get<int>();
+					yam2d::esLogMessage("%s: gameObjectType=%s, teamName=%d", eventName.c_str(), gameObject->getType().c_str(), teamName);
 				}
 				else
 				{
@@ -459,10 +212,10 @@ public:
 					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 				}
 
-				for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
-					m_myAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
-					m_myAIControllers[i]->setNewPath();
+					m_MyAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
+					m_MyAIControllers[i]->setNewPath();
 				}
 			}
 			else
@@ -474,16 +227,16 @@ public:
 				{
 					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
 				}
-				for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
-					m_myAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
-					m_myAIControllers[i]->setNewPath();
+					m_MyAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
+					m_MyAIControllers[i]->setNewPath();
 				}
 
-				for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
-					m_myAIControllers[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.9f, 0.05f);
-					m_myAIControllers[i]->setNewPath();
+					m_MyAIControllers[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.9f, 0.05f);
+					m_MyAIControllers[i]->setNewPath();
 				}
 			}
 		}
@@ -498,9 +251,9 @@ public:
 				m_autoAttackFlagCarryingBots[i]->resetTargetToShoot();
 			}
 
-			for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+			for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 			{
-				m_myAIControllers[i]->resetTargetToShoot();
+				m_MyAIControllers[i]->resetTargetToShoot();
 			}
 
 			// Item propped.
@@ -511,10 +264,10 @@ public:
 				m_directMoverAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
 			}
 
-			for (size_t i = 0; i < m_myAIControllers.size(); ++i)
+			for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 			{
-				m_myAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
-				m_myAIControllers[i]->setNewPath();
+				m_MyAIControllers[i]->setMoveTargetObject(dynamite, 1.0f);
+				m_MyAIControllers[i]->setNewPath();
 			}
 		}
 		else
@@ -579,7 +332,7 @@ int main(int argc, char *argv[])
 	app.disableLayer("GroundTypeColliders");
 //	app.disableLayer("GroundMoveSpeed");
 	app.setLayerOpacity("GroundMoveSpeed", 0.7f);
-	app.setDefaultGame("level2.tmx", "MyAI", "AutoAttackFlagCarryingBot", 4);
+	app.setDefaultGame("level0.tmx", "PTAI", "PTAI", 4);
 //	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
 //	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
