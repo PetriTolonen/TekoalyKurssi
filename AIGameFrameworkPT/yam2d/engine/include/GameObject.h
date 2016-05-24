@@ -27,6 +27,7 @@
 #include <vec2.h>
 #include <string>
 #include <Entity.h>
+#include <yam2d_dll_api.h>
 
 namespace yam2d
 {

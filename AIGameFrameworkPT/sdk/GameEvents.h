@@ -18,59 +18,64 @@ class b2Body;
 class CharacterController;
 class PickableItemController;
 
-class CollisionEvent : public yam2d::Object
+class YAM2D_API CollisionEvent : public yam2d::Object
 {
 public:
-	CollisionEvent(b2Body* bA, b2Body* bB, const yam2d::vec2& localNormal);
+	YAM2D_API CollisionEvent(yam2d::GameObject* goA, yam2d::GameObject* goB);
+//CollisionEvent(b2Body* bA, b2Body* bB, const yam2d::vec2& localNormal = yam2d::vec2(0.0f));
+	YAM2D_API CollisionEvent(PhysicsBody* goA, PhysicsBody* goB, const yam2d::vec2& localNormal = yam2d::vec2(0.0f));
 
-	virtual ~CollisionEvent();
+	YAM2D_API virtual ~CollisionEvent();
 
-	PhysicsBody* getMyBody() const { return m_myBody; }
-	PhysicsBody* getOtherBody() const { return m_otherBody; }
-	yam2d::GameObject* getMyGameObject() const;
-	yam2d::GameObject* getOtherGameObject() const;
+	YAM2D_API bool isValid() const;
 
-	const yam2d::vec2& getLocalNormal() const { return m_localNormal; }
-	b2Body* getBodyA() const { return m_bA; }
-	b2Body* getBodyB() const { return m_bB; }
-	bool isCollisionToSelf() const;
+	//PhysicsBody* getMyBody() const { return m_myBody; }
+	//PhysicsBody* getOtherBody() const { return m_otherBody; }
+	YAM2D_API yam2d::GameObject* getMyGameObject() const;
+	YAM2D_API yam2d::GameObject* getOtherGameObject() const;
+
+	YAM2D_API const yam2d::vec2& getLocalNormal() const { return m_localNormal; }
+	//b2Body* getBodyA() const { return m_bA; }
+	//b2Body* getBodyB() const { return m_bB; }
+	YAM2D_API bool isCollisionToSelf() const;
 private:
 	PhysicsBody* m_myBody;
 	PhysicsBody* m_otherBody;
 	yam2d::vec2 m_localNormal;
-	b2Body* m_bA;
-	b2Body* m_bB;
+	yam2d::GameObject* m_goA;
+	yam2d::GameObject* m_goB;
 };
 
 
-class TakingDamageEvent : public yam2d::Object
+class YAM2D_API TakingDamageEvent : public yam2d::Object
 {
 public:
-	TakingDamageEvent(yam2d::GameObject* fromObject, float damageAmount, float newHealth);
+	YAM2D_API TakingDamageEvent(yam2d::GameObject* fromObject, float damageAmount, float newHealth);
 
-	virtual ~TakingDamageEvent();
+	YAM2D_API virtual ~TakingDamageEvent();
 
-	yam2d::GameObject* getFromObject() const { return m_fromObject; }
-	float getDamageAmount() const { return m_damageAmount; }
-	float getNewHealth() const { return m_newHealth; }
+	YAM2D_API yam2d::GameObject* getFromObject() const { return m_fromObject; }
+	YAM2D_API float getDamageAmount() const { return m_damageAmount; }
+	YAM2D_API float getNewHealth() const { return m_newHealth; }
 private:
 	yam2d::GameObject* m_fromObject;
 	float m_damageAmount;
 	float m_newHealth;
 };
 
-class ItemEvent : public yam2d::Object
+class YAM2D_API ItemEvent : public yam2d::Object
 {
 public:
-	ItemEvent(CharacterController* object, PickableItemController* item);
+	YAM2D_API ItemEvent(CharacterController* object, PickableItemController* item);
 
-	virtual ~ItemEvent();
+	YAM2D_API virtual ~ItemEvent();
 
-	yam2d::GameObject* getGameObject() const;
-	yam2d::GameObject* getItemGameObject() const;
+	YAM2D_API yam2d::GameObject* getCharacterGameObject() const;
+	YAM2D_API yam2d::GameObject* getItemGameObject() const;
 
-	CharacterController* getObject() const { return m_object; }
-	PickableItemController* getItem() const { return m_item; }
+	// Which character controller picked the item.
+	YAM2D_API CharacterController* getCharacterController() const { return m_object; }
+	YAM2D_API PickableItemController* getItem() const { return m_item; }
 private:
 	CharacterController* m_object;
 	PickableItemController* m_item;

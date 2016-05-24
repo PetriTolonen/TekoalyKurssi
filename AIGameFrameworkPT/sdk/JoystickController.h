@@ -15,14 +15,14 @@
 class XBOXController;
 
 
-class JoystickController : public CharacterController
+class YAM2D_API JoystickController : public CharacterController
 {
 public:
-	JoystickController(yam2d::GameObject* owner, GameController* gameController, BotType botType, int controllerIndex);
-	virtual ~JoystickController(void);
+	YAM2D_API JoystickController(yam2d::GameObject* owner, GameController* gameController, BotType botType, int controllerIndex);
+	YAM2D_API virtual ~JoystickController(void);
 
 	// This virtual method is automatically called byt map/layer, when update is called from main.cpp
-	virtual void update(float deltaTime);
+	YAM2D_API virtual void update(float deltaTime);
 
 private:
 	yam2d::Ref<XBOXController> m_joystick;

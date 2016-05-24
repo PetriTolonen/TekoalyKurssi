@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WarGameStatic", "WarGameStatic\WarGameStatic.vcxproj", "{3525369A-9F22-4F7F-B26E-D2BC7D2A74CD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WarGame", "WarGame\WarGame.vcxproj", "{04B58DB6-6AE2-48F4-8285-FF8B8BB7EF86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{74A0E013-3733-406D-B92F-C7B8CCBFA0C4} = {74A0E013-3733-406D-B92F-C7B8CCBFA0C4}
+		{4AD05824-0D1A-444D-97E7-EC7A31C1B606} = {4AD05824-0D1A-444D-97E7-EC7A31C1B606}
+		{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E} = {E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PassCourse", "PassCourse\PassCourse.vcxproj", "{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MikkoRomppainen", "MikkoRomppainen\MikkoRomppainen.vcxproj", "{74A0E013-3733-406D-B92F-C7B8CCBFA0C4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JohnDoe", "JohnDoe\JohnDoe.vcxproj", "{4AD05824-0D1A-444D-97E7-EC7A31C1B606}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3525369A-9F22-4F7F-B26E-D2BC7D2A74CD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3525369A-9F22-4F7F-B26E-D2BC7D2A74CD}.Debug|Win32.Build.0 = Debug|Win32
+		{3525369A-9F22-4F7F-B26E-D2BC7D2A74CD}.Release|Win32.ActiveCfg = Release|Win32
+		{3525369A-9F22-4F7F-B26E-D2BC7D2A74CD}.Release|Win32.Build.0 = Release|Win32
+		{04B58DB6-6AE2-48F4-8285-FF8B8BB7EF86}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04B58DB6-6AE2-48F4-8285-FF8B8BB7EF86}.Debug|Win32.Build.0 = Debug|Win32
+		{04B58DB6-6AE2-48F4-8285-FF8B8BB7EF86}.Release|Win32.ActiveCfg = Release|Win32
+		{04B58DB6-6AE2-48F4-8285-FF8B8BB7EF86}.Release|Win32.Build.0 = Release|Win32
+		{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}.Debug|Win32.Build.0 = Debug|Win32
+		{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}.Release|Win32.ActiveCfg = Release|Win32
+		{E6D5F2BB-3054-499C-ABE7-9F6DFE48EA4E}.Release|Win32.Build.0 = Release|Win32
+		{74A0E013-3733-406D-B92F-C7B8CCBFA0C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{74A0E013-3733-406D-B92F-C7B8CCBFA0C4}.Debug|Win32.Build.0 = Debug|Win32
+		{74A0E013-3733-406D-B92F-C7B8CCBFA0C4}.Release|Win32.ActiveCfg = Release|Win32
+		{74A0E013-3733-406D-B92F-C7B8CCBFA0C4}.Release|Win32.Build.0 = Release|Win32
+		{4AD05824-0D1A-444D-97E7-EC7A31C1B606}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4AD05824-0D1A-444D-97E7-EC7A31C1B606}.Debug|Win32.Build.0 = Debug|Win32
+		{4AD05824-0D1A-444D-97E7-EC7A31C1B606}.Release|Win32.ActiveCfg = Release|Win32
+		{4AD05824-0D1A-444D-97E7-EC7A31C1B606}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

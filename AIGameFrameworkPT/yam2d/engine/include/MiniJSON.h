@@ -46,7 +46,7 @@ namespace yam2d {
         /// <returns>An List&lt;object&gt;, a Dictionary&lt;string, object&gt;, a double, an integer,a string, null, true, or false</returns>
         static PropertySet Deserialize(const std::string& json) {
             // save the string for debug information
-            if (json.length() == 0) {
+            if (json.length() <=2) {
                 return PropertySet();
             }
 

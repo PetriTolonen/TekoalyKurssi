@@ -9,6 +9,9 @@
 
 #include "ExampleBehaviours.h"
 #include "JoystickController.h"
+
+#include <Layer.h>
+
 #include "PathFindingApp.h"
 #include "slm/vec2.h"
 
@@ -16,6 +19,45 @@
 #include <time.h>       /* time */
 
 #include "PTAI.h"
+
+class MyAI : public CharacterController
+{
+public:
+	MyAI(yam2d::GameObject* owner, GameController* gameController, BotType botType)
+		: CharacterController(owner, gameController, botType)
+	{
+	}
+
+	virtual ~MyAI(void)
+	{
+	}
+
+	virtual void onMessage(const std::string& msgName, yam2d::Object* eventObject)
+	{
+		// Call onMessage to base class
+		CharacterController::onMessage(msgName, eventObject);
+
+		// TODO: handle message...
+	}
+
+	// This virtual method is automatically called byt map/layer, when update is called from main.cpp
+	virtual void update(float deltaTime)
+	{
+		// Call update to base class
+		CharacterController::update(deltaTime);
+
+		// TODO: Update...
+	}
+
+private:
+
+};
+
+
+
+
+
+
 
 class MyPlayerController : public PlayerController
 {
@@ -73,7 +115,7 @@ public:
 			m_directMoverAIControllers.push_back(controller);
 			return controller;
 		}
-		
+
 		if (playerName == "AutoAttackFlagCarryingBot")
 		{
 			AutoAttackFlagCarryingBot* controller = new AutoAttackFlagCarryingBot(ownerGameObject, gameController, type);
@@ -113,7 +155,7 @@ public:
 			m_MyAIControllers[i]->setMoveSpeedLayer(moveMap);
 			m_MyAIControllers[i]->setNewPath();
 			m_MyAIControllers[i]->startMoving();
-		}		
+		}
 	}
 
 
@@ -141,7 +183,7 @@ public:
 	// Called each frame. Update you player character controllers in this function.
 	virtual void onUpdate(GameEnvironmentInfoProvider* environmentInfo, float deltaTime)
 	{
-	//	yam2d::esLogMessage("onUpdate");
+		//	yam2d::esLogMessage("onUpdate");
 	}
 
 	// Called, when game event has ocurred.
@@ -166,22 +208,23 @@ public:
 		{
 			yam2d::GameObject* gameObject = dynamic_cast<yam2d::GameObject*>(eventObject);
 			assert(gameObject != 0);
+			std::string type = gameObject->getType();
 			// Don't print spawned weapon projectiles or explosions.
-			if (gameObject->getType() != "Missile"
-				&& gameObject->getType() != "Bullet"
-				&& gameObject->getType() != "Grenade"
-				&& gameObject->getType() != "Mine"
-				&& gameObject->getType() != "SmallExplosion"
-				&& gameObject->getType() != "MediumExplosion"
-				&& gameObject->getType() != "BigExplosion"
-				&& gameObject->getType() != "MineExplosion"
-				&& gameObject->getType() != "GrenadeExplosion")
+			if (type != "Missile"
+				&& type != "Bullet"
+				&& type != "Grenade"
+				&& type != "Mine"
+				&& type != "SmallExplosion"
+				&& type != "MediumExplosion"
+				&& type != "BigExplosion"
+				&& type != "MineExplosion"
+				&& type != "GrenadeExplosion")
 			{
 				// Prints: Soldier, Robot, HomeBase, Flag
-				if (gameObject->getProperties().hasProperty("teamIndex"))
+				if (gameObject->getProperties().hasProperty("team"))
 				{
-					int teamName = gameObject->getProperties()["teamIndex"].get<int>();
-					yam2d::esLogMessage("%s: gameObjectType=%s, teamName=%d", eventName.c_str(), gameObject->getType().c_str(), teamName);
+					std::string teamName = gameObject->getProperties()["team"].get<std::string>();
+					yam2d::esLogMessage("%s: gameObjectType=%s, teamName=%s", eventName.c_str(), gameObject->getType().c_str(), teamName.c_str());
 				}
 				else
 				{
@@ -193,14 +236,16 @@ public:
 		{
 			ItemEvent* itemEvent = dynamic_cast<ItemEvent*>(eventObject);
 			assert(itemEvent != 0);
-			int teamIndex = itemEvent->getObject()->getGameObject()->getProperties()["teamIndex"].get<int>();
+			yam2d::GameObject* item = itemEvent->getItemGameObject();
+			int teamIndex = itemEvent->getCharacterGameObject()->getProperties()["teamIndex"].get<int>();
 
 			yam2d::esLogMessage("%s: gameObjectType=%s, team=%d", eventName.c_str(), itemEvent->getItemGameObject()->getType().c_str(), teamIndex);
 
 			for (size_t i = 0; i < m_autoAttackFlagCarryingBots.size(); ++i)
 			{
-				m_autoAttackFlagCarryingBots[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.9f, 0.05f);
+				m_autoAttackFlagCarryingBots[i]->setTargetToShoot(itemEvent->getCharacterController()->getGameObject(), 1.9f, 0.05f);
 			}
+
 
 			if (teamIndex == getMyTeamIndex())
 			{
@@ -226,7 +271,9 @@ public:
 				for (size_t i = 0; i < m_directMoverAIControllers.size(); ++i)
 				{
 					m_directMoverAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
+					m_directMoverAIControllers[i]->stop();
 				}
+
 				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
 					m_MyAIControllers[i]->setMoveTargetObject(homeBase, 1.0f);
@@ -235,7 +282,7 @@ public:
 
 				for (size_t i = 0; i < m_MyAIControllers.size(); ++i)
 				{
-					m_MyAIControllers[i]->setTargetToShoot(itemEvent->getObject()->getGameObject(), 1.1f, 0.05f);
+					m_MyAIControllers[i]->setTargetToShoot(itemEvent->getCharacterController()->getGameObject(), 1.1f, 0.05f);
 					m_MyAIControllers[i]->setNewPath();
 				}
 			}
@@ -245,7 +292,7 @@ public:
 			ItemEvent* itemEvent = dynamic_cast<ItemEvent*>(eventObject);
 			assert(itemEvent != 0);
 			yam2d::esLogMessage("%s: gameObjectType=%s", eventName.c_str(), itemEvent->getItemGameObject()->getType().c_str());
-			
+
 			for (size_t i = 0; i < m_autoAttackFlagCarryingBots.size(); ++i)
 			{
 				m_autoAttackFlagCarryingBots[i]->resetTargetToShoot();
@@ -295,18 +342,16 @@ public:
 		{
 			CollisionEvent* collisionEvent = dynamic_cast<CollisionEvent*>(eventObject);
 			assert(collisionEvent != 0);
+			if (!collisionEvent->isValid()) return;
 			yam2d::GameObject* otherGo = collisionEvent->getOtherGameObject();
 			std::string otherType = otherGo->getType();
 			yam2d::vec2 localNormal = collisionEvent->getLocalNormal();
-	//		yam2d::esLogMessage("%s %s: myBody=%s toObject=%s bodyType=%s, localNormal=<%.2f,%.2f> ", gameObject->getType().c_str(), eventName.c_str(), collisionEvent->getMyBody()->getType().c_str(),
-	//			otherType.c_str(),
-	//			collisionEvent->getOtherBody()->getType().c_str(), localNormal.x, localNormal.y);
 		}
 		else if (eventName == "TakingDamage")
 		{
 			int teamIndex = gameObject->getProperties()["teamIndex"].get<int>();
 
-			TakingDamageEvent* damageEvent = dynamic_cast<TakingDamageEvent*>(eventObject);			
+			TakingDamageEvent* damageEvent = dynamic_cast<TakingDamageEvent*>(eventObject);
 			yam2d::GameObject* damageFromObject = damageEvent->getFromObject();
 			float newHealth = damageEvent->getNewHealth();
 			yam2d::esLogMessage("%s(team=%d) %s: fromObject=%s. New health: %3.1f", gameObject->getType().c_str(), teamIndex, eventName.c_str(), damageFromObject->getType().c_str(), newHealth);
@@ -330,12 +375,15 @@ int main(int argc, char *argv[])
 	//app.disableLayer("Ground");
 	app.disableLayer("ObjectSpawns");
 	app.disableLayer("GroundTypeColliders");
-//	app.disableLayer("GroundMoveSpeed");
-	app.setLayerOpacity("GroundMoveSpeed", 0.7f);
-	app.setDefaultGame("level0.tmx", "PTAI", "PTAI", 4);
-//	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", 4);
-//	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
-//	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
+	app.disableLayer("GroundMoveSpeed");
+	//app.setLayerOpacity("DebugLayer", 0.7f); 
+	//app.setLayerOpacity("GroundMoveSpeed", 0.7f); 
+	//app.setDefaultGame("level1.tmx", "MyAI", "DirectMoverAI", 4);
+	app.setDefaultGame("Level0.tmx", "PTAI", "DirectMoverAI", "PTAI", 4);
+	//	app.setDefaultGame("Level1.tmx", "AutoAttackFlagCarryingBot", "JoystickController", "PTAI", 4);
+	//	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", "PTAI", 4);
+	//	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", "PTAI", 4);
+	//	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", 4);
 	MyPlayerController player1Controller;
 	app.setPlayer1Controller(&player1Controller);
 	MyPlayerController player2Controller;

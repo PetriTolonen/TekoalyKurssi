@@ -1,0 +1,37 @@
+AIGameFramework version 0.3 2016.05.16:
+
+* See BeforeYouBegin.pdf	
+
+
+AIGameFramework version 0.2 2016.05.16:
+
+* API Changes:
+	- Added AIMapLayer::getLayer().
+	- GameApp::setDefaultGame() Now needs one extra parameter for local team name in network game.
+	- CollisionEvent: Removed getters for PhysicsBodies (not needed by the users).
+	- ItemEvent: Renamed getGameObject() to getCharacterController()
+
+* Other features:
+	- Collision bugs fixes: Had some issues with picking up dynamite and exploding of home base. 
+	- Some network code implemented. Not yet working okay.
+	- Match time calculation. Max match length is 3 minutes (180 seconds)
+	- Character has now different colors for different teams.
+	
+* Known issues:
+	- Release build has some rendering errors. Also relase build crash ocasionally. Use Debug build instead.
+	- Characters with Joystick input sometimes stuck in the walls and props. 
+	
+* Migration Guide from version 0.1:
+	- It is recommended to use new Visual Studio project from examples folder.
+
+AIGameFramework version 0.3 :
+* Bug fixes:
+    - Timeout bug fix: Had bug in code and 3 minutes limit did not work. Fixed now.
+	
+	
+	
+	
+	
+	
+	
+	

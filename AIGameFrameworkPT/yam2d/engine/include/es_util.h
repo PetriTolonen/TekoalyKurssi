@@ -69,6 +69,8 @@ enum WindowFlag
 	ES_WINDOW_MULTISAMPLE =	8,
 	/// resizable window should be created
 	ES_WINDOW_RESIZEABLE =	16,
+	/// create initially minimized
+	ES_WINDOW_START_MINIMIZED = 32,
 	/// default flags
 	ES_WINDOW_DEFAULT = ES_WINDOW_RGB|ES_WINDOW_ALPHA|ES_WINDOW_DEPTH
 };
@@ -114,6 +116,7 @@ struct ESContext
 #if defined(_WIN32)
 	/// Window handle
 	EGLNativeWindowType  hWnd;
+	bool isMinimized;
 #elif defined(ANDROID)
 	struct android_app* app;
     ASensorManager* sensorManager;
@@ -171,6 +174,13 @@ void esMainLoop ( ESContext *esContext );
  Quits application.
  */
 void esQuitApp(ESContext *esContext);
+
+
+/**
+ Minimizes the window to backgound (is applicable for platform).
+*/
+void esMinimizeWindow(ESContext *esContext);
+
 
 /**
  * Register a init callback function to be used to init the game.

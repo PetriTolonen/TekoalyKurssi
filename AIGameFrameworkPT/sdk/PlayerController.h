@@ -9,47 +9,48 @@
 #define PLAYER_CONTROLLER_H_ 
 
 // Include base class
+#include <Object.h>
 #include "GameEnvironmentInfoProvider.h"
 #include "CharacterController.h"
 
 
 
-class PlayerController
+class YAM2D_API PlayerController : public yam2d::Object
 {
 private:
 	int m_teamIndex;
 
 public:
-	PlayerController()
+	YAM2D_API PlayerController()
 		: m_teamIndex(-1)
 	{
 	}
 
-	virtual ~PlayerController()
+	YAM2D_API virtual ~PlayerController()
 	{
 	}
 
-	void setMyTeamIndex(int teamIndex)
+	YAM2D_API virtual void setMyTeamIndex(int teamIndex)
 	{
 		m_teamIndex = teamIndex;
 	}
 	
-	int getMyTeamIndex() const
+	YAM2D_API virtual int getMyTeamIndex() const
 	{
 		return m_teamIndex;
 	}
 
 	// Called, when bots are spawn. Shall return correct player character controller for bot if given name.
-	virtual CharacterController* createPlayerCharacterController(GameController* gameController, yam2d::GameObject* ownerGameObject, const std::string& playerName, BotType type) = 0;
+	YAM2D_API virtual CharacterController* createPlayerCharacterController(GameController* gameController, yam2d::GameObject* ownerGameObject, const std::string& playerName, BotType type) = 0;
 	
 	// Called, when bots have spawn. Can be used some custom initialization after spawn.
-	virtual void onGameStarted(GameEnvironmentInfoProvider* environmentInfo) = 0;
+	YAM2D_API virtual void onGameStarted(GameEnvironmentInfoProvider* environmentInfo) = 0;
 
 	// Called when game has ended. Can be used some cuystom deinitialization after game.
-	virtual void onGameOver(GameEnvironmentInfoProvider* environmentInfo, const std::string& gameResultString) = 0;
+	YAM2D_API virtual void onGameOver(GameEnvironmentInfoProvider* environmentInfo, const std::string& gameResultString) = 0;
 
 	// Called each frame. Update you player character controllers in this function.
-	virtual void onUpdate(GameEnvironmentInfoProvider* environmentInfo, float deltaTime) = 0;
+	YAM2D_API virtual void onUpdate(GameEnvironmentInfoProvider* environmentInfo, float deltaTime) = 0;
 
 	// Called, when game event has ocurred.
 	// Event name tells the event in question, each event type may have eventObject data associated with the event.
@@ -67,7 +68,7 @@ public:
 	// - ItemDropped: 
 	//		Called when item has beed dropped by game object.
 	//		eventObject: ItemDropperdEvent* = Item dropped event
-	virtual void onGameEvent(GameEnvironmentInfoProvider* environmentInfo, const std::string& eventName, yam2d::Object* eventObject) = 0;
+	YAM2D_API virtual void onGameEvent(GameEnvironmentInfoProvider* environmentInfo, const std::string& eventName, yam2d::Object* eventObject) = 0;
 	
 	// Send, when game object receives an event.
 	// Event name tells the event in question, each event type may have eventObject data associated with the event.
@@ -82,7 +83,7 @@ public:
 	// - ZeroHealth: 
 	//		Called when game object is going to die, because of zero health.
 	//		eventObject: 0 always.
-	virtual void onGameObjectEvent(GameEnvironmentInfoProvider* environmentInfo, yam2d::GameObject* gameObject, const std::string& eventName, yam2d::Object* eventObject) = 0;
+	YAM2D_API virtual void onGameObjectEvent(GameEnvironmentInfoProvider* environmentInfo, yam2d::GameObject* gameObject, const std::string& eventName, yam2d::Object* eventObject) = 0;
 
 };
 

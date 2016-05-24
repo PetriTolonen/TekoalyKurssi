@@ -10,11 +10,10 @@
 
 // Home Base config
 static const float HOME_BASE_SIZE = 2.0f;
-//static const float HOME_BASE_TRIGGER_SIZE = 2.0f;
 
 // Dynamite -item config
 static const float DYNAMITE_SIZE = 1.5f;
-static const float DYNAMITE_TRIGGER_SIZE = 1.5f;
+static const float DYNAMITE_TRIGGER_SIZE = 0.8f;
 
 
 // Soldier bullets has 50 damage/second

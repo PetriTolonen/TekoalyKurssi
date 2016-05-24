@@ -263,9 +263,9 @@ PropertySet::PropertySet(const PropertySet& o)
 	: Object()
     , m_properties(o.m_properties)
 {
-   // std::string json = Json::Serialize(o);
-   // PropertySet ps = Json::Deserialize(json);
-   // m_properties = ps.m_properties;
+  // std::string json = Json::Serialize(o);
+  // PropertySet ps = Json::Deserialize(json);
+  // m_properties = ps.m_properties;
 }
 
 PropertySet& PropertySet::operator=(const PropertySet& o)

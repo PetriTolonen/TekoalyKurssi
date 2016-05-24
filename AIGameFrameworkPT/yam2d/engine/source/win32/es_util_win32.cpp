@@ -54,225 +54,244 @@ LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 {
 	LRESULT  lRet = 1; 
 	assert( hWnd != 0 );
-	switch (uMsg) 
+	switch (uMsg)
 	{
 	case WM_CREATE:
 		break;
 
 	case WM_PAINT:
-		{
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr (hWnd, GWL_USERDATA );
-			assert( esContext != 0 );
+	{
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		assert(esContext != 0);
 
-			if ( esContext->drawFunc && g_firstUpdateDone )
+		if (esContext->drawFunc && g_firstUpdateDone)
+		{
+			try
 			{
-				try
+				if (esContext->drawFunc && esContext->width > 0 && esContext->height > 0)
 				{
-					if ( esContext->drawFunc && esContext->width > 0 && esContext->height > 0)
-					{
-						esContext->drawFunc ( esContext );
-						eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
-					}   
-				}
-				catch (std::exception& e)
-				{
-					printf("std::exception: %s\n", e.what());
-					done = true;
-					DebugBreak();
-				}
-				catch (...)
-				{
-					printf("Unknown exception ocurred!\n");
-					done = true;
-					DebugBreak();
+					esContext->drawFunc(esContext);
+					eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 				}
 			}
+			catch (std::exception& e)
+			{
+				printf("std::exception: %s\n", e.what());
+				done = true;
+				DebugBreak();
+			}
+			catch (...)
+			{
+				printf("Unknown exception ocurred!\n");
+				done = true;
+				DebugBreak();
+			}
+		}
 
-			ValidateRect( esContext->hWnd, NULL );
-		}
-		break;
-	
+		ValidateRect(esContext->hWnd, NULL);
+	}
+	break;
+
 	case WM_SIZING:
-		{
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			assert( esContext != 0 );
-			RECT rc;
-			GetClientRect(hWnd,&rc);
-			esContext->height = rc.bottom - rc.top;
-			esContext->width = rc.right - rc.left;
-		}
-		break;
+	{
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		assert(esContext != 0);
+		RECT rc;
+		GetClientRect(hWnd, &rc);
+		esContext->height = rc.bottom - rc.top;
+		esContext->width = rc.right - rc.left;
+	}
+	break;
+
 
 	case WM_SIZE:
+	{
+		RECT rc;
+		GetClientRect(hWnd, &rc);
+		int w = rc.right - rc.left;
+		int h = rc.bottom - rc.top;
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0)
 		{
-			RECT rc;
-			GetClientRect(hWnd,&rc);
-			int w = rc.right - rc.left;
-			int h = rc.bottom - rc.top;
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 )
+			esContext->height = h;
+			esContext->width = w;
+
+			if (wParam == SIZE_MAXIMIZED)
 			{
-				esContext->height = h;
-				esContext->width = w;
+				esContext->isMinimized = false;
 			}
-		}
-		break;
-
-	case WM_DESTROY:
-		done = true;
-		PostQuitMessage(0);             
-		break; 
-      
-
-	case WM_LBUTTONDOWN:
-		{
-			SetCapture(hWnd);
-			leftClicked = true;
-			mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
-		
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 )
+			else if (wParam == SIZE_MINIMIZED)
 			{
-				touchEventFunc(esContext, TOUCH_BEGIN, 0, xPos, yPos ); 
+				esContext->isMinimized = true;
 			}
-		}
-		break;
-
-	case WM_LBUTTONUP:
-		{			
-			mouseState(false, rightClicked, middleClicked, xPos, yPos);
-
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 && leftClicked )
+			else if (wParam == SIZE_RESTORED)
 			{
-				touchEventFunc(esContext, TOUCH_END, 0, xPos, yPos ); 
-			}
-			leftClicked = false;
-			SetCapture(leftClicked||rightClicked||middleClicked ? hWnd : 0);
-		}
-		break;
-
-	case WM_RBUTTONDOWN:
-		{
-			SetCapture(hWnd);
-			rightClicked = true;
-			mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
-
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 )
-			{
-				touchEventFunc(esContext, TOUCH_BEGIN, 1, xPos, yPos ); 
-			}
-		}
-		break;
-
-	case WM_RBUTTONUP:
-		{			
-			mouseState(leftClicked, false, middleClicked, xPos, yPos);
-
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 && rightClicked )
-			{
-				touchEventFunc(esContext, TOUCH_END, 1, xPos, yPos ); 
-			}
-			rightClicked = false;
-			SetCapture(leftClicked||rightClicked||middleClicked ? hWnd : 0);
-		}
-		break;
-
-	case WM_MBUTTONDOWN:
-		{
-			SetCapture(hWnd);
-			middleClicked = true;
-			mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
-
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 )
-			{
-				touchEventFunc(esContext, TOUCH_BEGIN, 2, xPos, yPos ); 
-			}
-		}
-		break;
-
-	case WM_MBUTTONUP:
-		{		
-			mouseState(leftClicked, rightClicked, false, xPos, yPos);
-
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( esContext != 0 && middleClicked)
-			{
-				touchEventFunc(esContext, TOUCH_END, 2, xPos, yPos ); 
-			}
-			middleClicked = false;
-			SetCapture(leftClicked||rightClicked||middleClicked ? hWnd : 0);
-		}
-		break;
-
-	case  WM_CAPTURECHANGED:
-		{
-			if( GetCapture() == 0 )
-			{
-				mouseState(false, false, false, xPos, yPos);
-		
-				ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-				if( esContext != 0 )
-				{
-					if( leftClicked ) touchEventFunc(esContext, TOUCH_CANCEL, 0, xPos, yPos ); 
-					if( rightClicked ) touchEventFunc(esContext, TOUCH_CANCEL, 1, xPos, yPos ); 
-					if( middleClicked ) touchEventFunc(esContext, TOUCH_CANCEL, 2, xPos, yPos ); 
-				}
-			
-				middleClicked = false;
-				rightClicked = false;
-				leftClicked = false;
-			}
-		}		
-		break;
-
-	case WM_MOUSEWHEEL:
-		{ 
-			//esLogEngineError("WM_MOUSEWHEEL");
-			int delta = GET_WHEEL_DELTA_WPARAM(wParam);
-			mouseWheel( delta/WHEEL_DELTA );
-		}
-		break;
-
-	case WM_MOUSEMOVE:
-		{
-			POINT point;
-			point.x = GET_X_LPARAM(lParam);
-			point.y = GET_Y_LPARAM(lParam);
-			ClientToScreen(hWnd,&point);
-			MapWindowPoints(HWND_DESKTOP,hWnd,&point,1);
-			ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
-			if( point.x < 0 || point.y < 0 ||
-				point.x >= esContext->width ||  point.y >= esContext->height )
-			{
-				SetCapture(0);
+				esContext->isMinimized = false;
 			}
 			else
 			{
-				xPos = point.x;
-				yPos = point.y;
-			
-				if( esContext != 0 )
-				{
-					if( leftClicked ) touchEventFunc(esContext, TOUCH_MOVE, 0, xPos, yPos ); 
-					if( rightClicked ) touchEventFunc(esContext, TOUCH_MOVE, 1, xPos, yPos ); 
-					if( middleClicked ) touchEventFunc(esContext, TOUCH_MOVE, 2, xPos, yPos ); 
-				}
-
-				mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
 			}
-
-			
 		}
+
+					
+	}
+	break;
+
+	case WM_DESTROY:
+		done = true;
+		PostQuitMessage(0);
 		break;
 
-	default: 
-		lRet = DefWindowProc (hWnd, uMsg, wParam, lParam); 
-		break; 
-	} 
+
+	case WM_LBUTTONDOWN:
+	{
+		SetCapture(hWnd);
+		leftClicked = true;
+		mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0)
+		{
+			touchEventFunc(esContext, TOUCH_BEGIN, 0, xPos, yPos);
+		}
+	}
+	break;
+
+	case WM_LBUTTONUP:
+	{
+		mouseState(false, rightClicked, middleClicked, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0 && leftClicked)
+		{
+			touchEventFunc(esContext, TOUCH_END, 0, xPos, yPos);
+		}
+		leftClicked = false;
+		SetCapture(leftClicked || rightClicked || middleClicked ? hWnd : 0);
+	}
+	break;
+
+	case WM_RBUTTONDOWN:
+	{
+		SetCapture(hWnd);
+		rightClicked = true;
+		mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0)
+		{
+			touchEventFunc(esContext, TOUCH_BEGIN, 1, xPos, yPos);
+		}
+	}
+	break;
+
+	case WM_RBUTTONUP:
+	{
+		mouseState(leftClicked, false, middleClicked, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0 && rightClicked)
+		{
+			touchEventFunc(esContext, TOUCH_END, 1, xPos, yPos);
+		}
+		rightClicked = false;
+		SetCapture(leftClicked || rightClicked || middleClicked ? hWnd : 0);
+	}
+	break;
+
+	case WM_MBUTTONDOWN:
+	{
+		SetCapture(hWnd);
+		middleClicked = true;
+		mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0)
+		{
+			touchEventFunc(esContext, TOUCH_BEGIN, 2, xPos, yPos);
+		}
+	}
+	break;
+
+	case WM_MBUTTONUP:
+	{
+		mouseState(leftClicked, rightClicked, false, xPos, yPos);
+
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (esContext != 0 && middleClicked)
+		{
+			touchEventFunc(esContext, TOUCH_END, 2, xPos, yPos);
+		}
+		middleClicked = false;
+		SetCapture(leftClicked || rightClicked || middleClicked ? hWnd : 0);
+	}
+	break;
+
+	case  WM_CAPTURECHANGED:
+	{
+		if (GetCapture() == 0)
+		{
+			mouseState(false, false, false, xPos, yPos);
+
+			ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			if (esContext != 0)
+			{
+				if (leftClicked) touchEventFunc(esContext, TOUCH_CANCEL, 0, xPos, yPos);
+				if (rightClicked) touchEventFunc(esContext, TOUCH_CANCEL, 1, xPos, yPos);
+				if (middleClicked) touchEventFunc(esContext, TOUCH_CANCEL, 2, xPos, yPos);
+			}
+
+			middleClicked = false;
+			rightClicked = false;
+			leftClicked = false;
+		}
+	}
+	break;
+
+	case WM_MOUSEWHEEL:
+	{
+		//esLogEngineError("WM_MOUSEWHEEL");
+		int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+		mouseWheel(delta / WHEEL_DELTA);
+	}
+	break;
+
+	case WM_MOUSEMOVE:
+	{
+		POINT point;
+		point.x = GET_X_LPARAM(lParam);
+		point.y = GET_Y_LPARAM(lParam);
+		ClientToScreen(hWnd, &point);
+		MapWindowPoints(HWND_DESKTOP, hWnd, &point, 1);
+		ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		if (point.x < 0 || point.y < 0 ||
+			point.x >= esContext->width || point.y >= esContext->height)
+		{
+			SetCapture(0);
+		}
+		else
+		{
+			xPos = point.x;
+			yPos = point.y;
+
+			if (esContext != 0)
+			{
+				if (leftClicked) touchEventFunc(esContext, TOUCH_MOVE, 0, xPos, yPos);
+				if (rightClicked) touchEventFunc(esContext, TOUCH_MOVE, 1, xPos, yPos);
+				if (middleClicked) touchEventFunc(esContext, TOUCH_MOVE, 2, xPos, yPos);
+			}
+
+			mouseState(leftClicked, rightClicked, middleClicked, xPos, yPos);
+		}
+
+
+	}
+	break;
+
+	default:
+		lRet = DefWindowProc(hWnd, uMsg, wParam, lParam);
+		break;
+	}
 
 	return lRet; 
 }
@@ -283,30 +302,58 @@ ESContext *esGetCurrentContext()
 {
 	return g_lastCtx;
 }
-
-GLboolean winCreate ( ESContext *esContext, const char *title, bool resizable )
+namespace
 {
-	assert( esContext != 0 );
+	std::string wstrtostr(const std::wstring &wstr)
+	{
+		char *szTo = new char[wstr.length() + 1];
+		szTo[wstr.size()] = '\0';
+		WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, szTo, (int)wstr.length(), NULL, NULL);
+		std::string strTo(szTo);
+		delete[] szTo;
+		return strTo;
+	}
+
+	std::wstring strtowstr(const std::string &str)
+	{
+		wchar_t *szTo = new wchar_t[str.length() + 1];
+		szTo[str.size()] = '\0';
+		MultiByteToWideChar(CP_UTF8, 0, &str[0], -1, szTo, (int)str.length());
+		std::wstring strTo(szTo, str.length());
+		delete[] szTo;
+		return strTo;
+	}
+
+
+	std::wstring strtowstr(const char* str)
+	{
+		return strtowstr(std::string(str));
+	}
+}
+
+GLboolean winCreate(ESContext *esContext, const char *title, bool resizable, bool createMinimized)
+{
+	assert(esContext != 0);
 	g_lastCtx = esContext;
-	WNDCLASS wndclass = {0}; 
-	DWORD    wStyle   = 0;
+	WNDCLASS wndclass = { 0 };
+	DWORD    wStyle = 0;
 	RECT     windowRect;
 	HINSTANCE hInstance = GetModuleHandle(NULL);
 
 
-	wndclass.style         = CS_OWNDC;
-	wndclass.lpfnWndProc   = (WNDPROC)ESWindowProc; 
-	wndclass.hInstance     = hInstance; 
-	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH); 
-	wndclass.lpszClassName = "opengles1.x"; 
+	wndclass.style = CS_OWNDC;
+	wndclass.lpfnWndProc = (WNDPROC)ESWindowProc;
+	wndclass.hInstance = hInstance;
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wndclass.lpszClassName = "opengles1.x";
 
-	if (!RegisterClass (&wndclass) ) 
+	if (!RegisterClass(&wndclass))
 	{
 		esLogEngineError("Failed to register wndclass");
-//		return FALSE; 
+		//		return FALSE; 
 	}
 
-	if( resizable )
+	if (resizable)
 	{
 		wStyle = WS_VISIBLE | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_BORDER | WS_SYSMENU | WS_CAPTION | WS_THICKFRAME;
 	}
@@ -322,35 +369,43 @@ GLboolean winCreate ( ESContext *esContext, const char *title, bool resizable )
 	windowRect.right = esContext->width;
 	windowRect.bottom = esContext->height;
 
-	AdjustWindowRect ( &windowRect, wStyle, FALSE );
-	
-	esContext->hWnd = CreateWindowEx(WS_EX_LEFT,
-									"opengles1.x",
-									title,
-									wStyle,
-									10,
-									10,
-									windowRect.right - windowRect.left,
-									windowRect.bottom - windowRect.top,
-									NULL,
-									NULL,
-									hInstance,
-									NULL);
+	AdjustWindowRect(&windowRect, wStyle, FALSE);
+	std::string t = title;
 
-	if ( esContext->hWnd == NULL )
+
+	esContext->hWnd = CreateWindowEx(WS_EX_LEFT,
+		"opengles1.x",
+		t.c_str(),
+		wStyle,
+		10,
+		10,
+		windowRect.right - windowRect.left,
+		windowRect.bottom - windowRect.top,
+		NULL,
+		NULL,
+		hInstance,
+		NULL);
+
+	if (esContext->hWnd == NULL)
 	{
 		DWORD LastError = GetLastError();
-		(void) LastError;
+		(void)LastError;
 		esLogEngineError("Failed to create window");
-//		return GL_FALSE;
+		//		return GL_FALSE;
 	}
 
 	// Set user data
-	SetWindowLongPtr( esContext->hWnd, GWL_USERDATA, (LONG) (LONG_PTR) esContext );
-	
-	// Show window
-	ShowWindow ( esContext->hWnd, SW_SHOWDEFAULT );
+	SetWindowLongPtr(esContext->hWnd, GWL_USERDATA, (LONG)(LONG_PTR)esContext);
 
+	// Show window
+	if (createMinimized)
+	{
+		ShowWindow(esContext->hWnd, SW_SHOWMINIMIZED);
+	}
+	else
+	{
+		ShowWindow(esContext->hWnd, SW_SHOWDEFAULT);
+	}
 	return GL_TRUE;
 }
 
@@ -543,7 +598,7 @@ GLboolean esCreateWindow ( ESContext *esContext, const char* title, GLint width,
 	esContext->width = width;
 	esContext->height = height;
 
-	if ( !winCreate ( esContext, title, (flags&ES_WINDOW_RESIZEABLE) ? true : false ) )
+	if (!winCreate(esContext, title, (flags&ES_WINDOW_RESIZEABLE) ? true : false, (flags&ES_WINDOW_START_MINIMIZED) ? true : false ) )
 	{
 		return GL_FALSE;
 	}

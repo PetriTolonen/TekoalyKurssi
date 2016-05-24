@@ -11,28 +11,30 @@
 #include <GameObject.h>
 #include <stdint.h>
 #include "AIMapLayer.h"
+#include <yam2d_dll_api.h>
 /*
 */
 
 class PlayerController;
 
-class GameEnvironmentInfoProvider
+class YAM2D_API GameEnvironmentInfoProvider
 {
 protected:
-	GameEnvironmentInfoProvider()
+	YAM2D_API GameEnvironmentInfoProvider()
 	{
 	}
 
-	virtual ~GameEnvironmentInfoProvider()
+	YAM2D_API virtual ~GameEnvironmentInfoProvider()
 	{
 	}
 
 public:
-	virtual const yam2d::GameObject* getDynamite() const = 0;
-	virtual const yam2d::GameObject* getEnemyHomeBase(PlayerController* player) const = 0;
-	virtual const yam2d::GameObject* getMyHomeBase(PlayerController* player) const = 0;
-
-	virtual AIMapLayer* getAILayer(const std::string layerName) = 0;
+	YAM2D_API virtual const yam2d::GameObject* getDynamite() const = 0;
+	YAM2D_API virtual std::vector<const yam2d::GameObject*> getEnemyBots(PlayerController* player) const = 0;
+	YAM2D_API virtual std::vector<const yam2d::GameObject*> getMyBots(PlayerController* player) const = 0;
+	YAM2D_API virtual const yam2d::GameObject* getEnemyHomeBase(PlayerController* player) const = 0;
+	YAM2D_API virtual const yam2d::GameObject* getMyHomeBase(PlayerController* player) const = 0;
+	YAM2D_API virtual AIMapLayer* getAILayer(const std::string layerName) = 0;
 
 };
 

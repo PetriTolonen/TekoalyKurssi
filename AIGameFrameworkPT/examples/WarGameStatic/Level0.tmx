@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="32">
+ <tileset firstgid="1" source="WarGame.tsx"/>
+ <layer name="Ground" width="40" height="40">
+  <properties>
+   <property name="static" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzVmM1uhDAMhN32UFU9VP1TL+3CCXKCvP/TNUhY8k4dSIJDs4fRaiEkHx7HBj6I6K1RfQY9B10a1Bz0tPK5BnhQveD7bxZNXeN8Y6a/Y6FHFvErWbsmG8ZvCJoq+GPFNxvPfVSOrutLql/DSXx+/WW+DjgsPevX+dEjlJZfsfhNZFuzu4QxGj/z+Z1ra/i65dNe/GL392ik1JjK+oLjx5VpOX4X9BD0YiSeb8sv7G8y35gN78OKj+dDj5d1Odcc6ftXxr6DcdZ8MiYDrI35h3ugV8Z9GUnmlawZMi7IJ2sbn/dU5zks5q9klePmjbGyD1rzzaTXvQ7W5ZxEj11lPk9630B/2VtPf3tYbp/O4ZO5jnF0kXXRZznOqj5jXGL9CesLsnFMz6gvTvmvxQ+fC2rWP9n3PcRRrjuv57S9tBx7DXo35OP5uJZg7NDf1Oc6q/osY5ayj2J8e9fnqof/sWdM5impG0ffo5BRE3On+mv5bpfC11NZX8X7qPm+NBX6e5Za//5yuSE+628b1nw5de7Mb5klfEeV41VK/ll7v8yXWpduYX98B903qp+gX5Ikpow=
+  </data>
+ </layer>
+ <objectgroup name="GroundTypeColliders" opacity="0.5">
+  <object id="4" name="Dirt" type="DirtTrigger" x="352" y="448" width="576" height="384"/>
+  <object id="6" name="Wall" type="Wall" x="0" y="16" width="16" height="1248"/>
+  <object id="8" name="Wall" type="Wall" x="1264" y="16" width="16" height="1248"/>
+  <object id="9" name="Wall" type="Wall" x="0" y="0" width="1280" height="16"/>
+  <object id="10" name="Wall" type="Wall" x="0" y="1264" width="1280" height="16"/>
+  <object id="15" name="Sand" type="SandTrigger" x="16" y="16" width="1248" height="432"/>
+  <object id="17" name="Sand" type="SandTrigger" x="16" y="832" width="1248" height="432"/>
+  <object id="25" name="Sand" type="SandTrigger" x="16" y="448" width="272" height="384"/>
+  <object id="26" name="Sand" type="SandTrigger" x="992" y="448" width="272" height="384"/>
+  <object id="30" name="Wall" type="Wall" x="288" y="448" width="64" height="384"/>
+  <object id="31" name="Wall" type="Wall" x="928" y="448" width="64" height="384"/>
+ </objectgroup>
+ <objectgroup name="ObjectSpawns" opacity="0.2">
+  <object id="1" name="BotSpawn1" type="BotSpawn" x="96" y="32" width="1088" height="224"/>
+  <object id="2" name="BotSpawn0" type="BotSpawn" x="96" y="1024" width="1088" height="224"/>
+  <object id="3" name="GoalPosition" type="GoalPosition" x="416" y="512" width="448" height="256"/>
+ </objectgroup>
+ <objectgroup name="Objects"/>
+</map>

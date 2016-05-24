@@ -15,26 +15,26 @@ class GameController;
 
 
 // Use yam2d::Component as base class for our player. Use also yam2d::Updatable -interface, for update-method.
-class GameBaseController : public yam2d::Component, public yam2d::Updatable
+class YAM2D_API GameBaseController : public yam2d::Component, public yam2d::Updatable
 {
 public:
-	GameBaseController(yam2d::GameObject* owner, GameController* gameController);
-	virtual ~GameBaseController(void);
+	YAM2D_API GameBaseController(yam2d::GameObject* owner, GameController* gameController);
+	YAM2D_API virtual ~GameBaseController(void);
 		
-	yam2d::GameObject* getGameObject() { return (yam2d::GameObject*)getOwner(); }
-	const yam2d::GameObject* getGameObject() const { return (const yam2d::GameObject*)getOwner(); }
+	YAM2D_API yam2d::GameObject* getGameObject() { return (yam2d::GameObject*)getOwner(); }
+	YAM2D_API const yam2d::GameObject* getGameObject() const { return (const yam2d::GameObject*)getOwner(); }
 
 	//  Used by game internally.
-	GameController* getGameController() { return m_gameController; }
-	const GameController* getGameController() const { return m_gameController; }
+	YAM2D_API GameController* getGameController() { return m_gameController; }
+	YAM2D_API const GameController* getGameController() const { return m_gameController; }
 
 	// Returns rotated forward direction (i.e. direction, where the gun is pointing)
-	slm::vec2 getForwardDirection() const;
+	YAM2D_API slm::vec2 getForwardDirection() const;
 		
-	void sendMessage(const std::string& msgName, yam2d::Object* obj);
+	YAM2D_API void sendMessage(const std::string& msgName, yam2d::Object* obj);
 
 protected:
-	virtual void onMessage(const std::string& msgName, yam2d::Object* obj)
+	YAM2D_API virtual void onMessage(const std::string& msgName, yam2d::Object* obj)
 	{
 	}
 	

@@ -10,32 +10,40 @@
 
 #include <Texture.h>
 #include <stdint.h>
-class AIMapLayer
+#include <yam2d_dll_api.h>
+#include <Layer.h>
+#include <GameObject.h>
+
+class YAM2D_API AIMapLayer
 {
+private:
+	yam2d::Layer* m_layer;
 protected:
-	AIMapLayer()
+	YAM2D_API AIMapLayer(yam2d::Layer* layer)
+		: m_layer(layer)
 	{
 	}
 
-	virtual ~AIMapLayer()
+	YAM2D_API virtual ~AIMapLayer()
 	{
 	}
+
 
 
 public:
-	virtual void setPixel(int px, int py, float value) = 0;
-	virtual void setPixel(int px, int py, uint8_t* pixelValues) = 0;
-	virtual uint8_t* getPixel(int px, int py) = 0;
-	virtual const uint8_t* getPixel(int px, int py) const = 0;
-	virtual int getWidth() const = 0;
-	virtual int getHeight() const = 0;
+	YAM2D_API virtual void setPixel(int px, int py, float value) = 0;
+	YAM2D_API virtual void setPixel(int px, int py, uint8_t* pixelValues) = 0;
+	YAM2D_API virtual uint8_t* getPixel(int px, int py) = 0;
+	YAM2D_API virtual const uint8_t* getPixel(int px, int py) const = 0;
+	YAM2D_API virtual int getWidth() const = 0;
+	YAM2D_API virtual int getHeight() const = 0;
 
-	/*uint8_t* getPixelFromPos(const slm::vec2& pos)
+	YAM2D_API yam2d::Layer* getLayer() const
 	{
-		return getPixel((int)(pos.x + 0.5f), (int)(pos.y + 0.5f));
-	}*/
+		return m_layer;
+	}
 
-	const uint8_t* getPixelFromPos(const slm::vec2& pos) const
+	YAM2D_API const uint8_t* getPixelFromPos(const slm::vec2& pos) const
 	{
 		return getPixel((int)(pos.x + 0.5f), (int)(pos.y + 0.5f));
 	}
