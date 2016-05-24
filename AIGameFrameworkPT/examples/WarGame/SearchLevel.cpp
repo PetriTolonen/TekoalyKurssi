@@ -39,22 +39,35 @@ bool SearchLevel::isWalkable(int posX, int posY)
 std::vector<Position> SearchLevel::getAdjacentNodes(int posX, int posY)
 {
 	std::vector<Position> result;
+	int pass = 0;
 
-	if (isWalkable(posX + 1, posY))
+	if (isWalkable(posX + 1, posY) && isWalkable(posX + 2, posY))
 	{
 		result.push_back(Position(posX + 1, posY));
+		pass++;
 	}
-	if (isWalkable(posX - 1, posY))
+	if (isWalkable(posX - 1, posY) && isWalkable(posX - 2, posY))
 	{
 		result.push_back(Position(posX - 1, posY));
+		pass++;
 	}
-	if (isWalkable(posX, posY + 1))
+	if (isWalkable(posX, posY + 1) && isWalkable(posX, posY + 2))
 	{
 		result.push_back(Position(posX, posY + 1));
+		pass++;
 	}
-	if (isWalkable(posX, posY - 1))
+	if (isWalkable(posX, posY - 1) && isWalkable(posX, posY - 2))
 	{
 		result.push_back(Position(posX, posY - 1));
+		pass++;
 	}
-	return result;
+	if (pass >= 3)
+	{
+		return result;
+	}
+	else
+	{
+		result.clear();
+		return result;
+	}	
 }

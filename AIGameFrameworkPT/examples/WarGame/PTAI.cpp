@@ -25,7 +25,9 @@ void PTAI::updateCurrentWaypoint()
 {
 	if (myPathFinder->getWaypoints().size() > 0)
 	{
-		if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < 0.55f &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < 0.55f)
+		float reachTolerance = 0.55f;
+		
+		if (abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - getGameObject()->getPosition().x) < reachTolerance &&  abs(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y - getGameObject()->getPosition().y) < reachTolerance)
 		{
 			if (indexOfCurrentWaypoint > 0)
 			{
@@ -131,7 +133,11 @@ void PTAI::update(float deltaTime)
 		// Move to position
 		if (indexOfCurrentWaypoint > 0 && moving == true)
 		{
-			if (!imStuck)
+			if (indexOfCurrentWaypoint < 2)
+			{
+				m_distanceToDestination = moveDirectToPosition(m_gameObjectToGo->getPosition(), m_reachTolerance);
+			}
+			else if (!imStuck)
 			{
 				m_distanceToDestination = moveDirectToPosition(slm::vec2(myPathFinder->getWaypoints()[indexOfCurrentWaypoint].x - 0.5f, myPathFinder->getWaypoints()[indexOfCurrentWaypoint].y), m_reachTolerance);
 			}

@@ -379,7 +379,7 @@ int main(int argc, char *argv[])
 	//app.setLayerOpacity("DebugLayer", 0.7f); 
 	//app.setLayerOpacity("GroundMoveSpeed", 0.7f); 
 	//app.setDefaultGame("level1.tmx", "MyAI", "DirectMoverAI", 4);
-	app.setDefaultGame("Level0.tmx", "PTAI", "DirectMoverAI", "PTAI", 4);
+	app.setDefaultGame("Level1.tmx", "PTAI", "DirectMoverAI", "PTAI", 4);
 	//	app.setDefaultGame("Level1.tmx", "AutoAttackFlagCarryingBot", "JoystickController", "PTAI", 4);
 	//	app.setDefaultGame("Level0.tmx", "AutoAttackFlagCarryingBot", "DirectMoverAI", "PTAI", 4);
 	//	app.setDefaultGame("Level0.tmx", "DirectMoverAI", "AutoAttackFlagCarryingBot", "PTAI", 4);
