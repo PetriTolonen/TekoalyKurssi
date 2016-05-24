@@ -8,7 +8,8 @@
 #include "ClosedList.h"
 #include "SearchLevel.h"
 #include "SearchNode.h"
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	//namespace
 	//{

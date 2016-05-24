@@ -1,7 +1,8 @@
 #pragma once
 #include "SearchNode.h"
 #include <vector>
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	class OpenList
 	{

@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	app->disableLayer("ObjectSpawns");
 	app->disableLayer("GroundTypeColliders");
 	app->disableLayer("GroundMoveSpeed");
-	app->setDefaultGame("Level0.tmx", "PassCourse", "JohnDoe", "JohnDoe", 4);
+	app->setDefaultGame("Level1.tmx", "PassCourse", "JohnDoe", "JohnDoe", 4);
 	app->setPlayer1Controller(PassCourse::createNewPlayer());
 	app->setPlayer2Controller(JohnDoe::createNewPlayer());
 

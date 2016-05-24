@@ -2,8 +2,7 @@
 
 #include "SearchNode.h"
 #include <map>
-
-namespace PTAInamespace
+namespace JohnDoe
 {
 	class ClosedList
 	{

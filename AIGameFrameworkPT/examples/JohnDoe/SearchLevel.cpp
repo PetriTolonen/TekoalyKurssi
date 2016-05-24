@@ -1,6 +1,6 @@
 #include "SearchLevel.h"
 
-namespace PTAInamespace
+namespace JohnDoe
 {
 	SearchLevel::SearchLevel(AIMapLayer* input) : inputLayer(input)
 	{

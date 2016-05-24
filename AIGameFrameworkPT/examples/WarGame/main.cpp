@@ -63,7 +63,7 @@ class MyPlayerController : public PlayerController
 {
 private:
 	std::string m_myTeamName;
-	std::vector< yam2d::Ref<PTAI> > m_MyAIControllers;
+	std::vector< yam2d::Ref<PTAInamespace::PTAI> > m_MyAIControllers;
 	std::vector< yam2d::Ref<JoystickController> > m_joystickControllers;
 	std::vector< yam2d::Ref<DirectMoverAI> > m_directMoverAIControllers;
 	std::vector< yam2d::Ref<AutoAttackFlagCarryingBot> > m_autoAttackFlagCarryingBots;
@@ -104,7 +104,7 @@ public:
 
 		if (playerName == "PTAI")
 		{
-			PTAI* PtAI = new PTAI(ownerGameObject, gameController, type);
+			PTAInamespace::PTAI* PtAI = new PTAInamespace::PTAI(ownerGameObject, gameController, type);
 			m_MyAIControllers.push_back(PtAI);
 			return PtAI;
 		}

@@ -1,8 +1,8 @@
 #include "PTAI.h"
 
-namespace PTAInamespace
+namespace JohnDoe
 {
-	PTAI::PTAI(yam2d::GameObject* owner, GameController* gameController, BotType botType)
+	JohnDoeController::JohnDoeController(yam2d::GameObject* owner, GameController* gameController, BotType botType)
 		: CharacterController(owner, gameController, botType)
 		, m_gameObjectToGo(0)
 		, m_reachTolerance(0.0f)
@@ -11,7 +11,7 @@ namespace PTAInamespace
 		, m_gameObjectToShoot(0)
 		, m_predictionDistance(0.0f)
 		, m_aimTolerance(0.0f)
-		, debugLayer(nullptr)
+		//, debugLayer(nullptr)
 		, moveSpeedLayer(nullptr)
 		, indexOfCurrentWaypoint(0)
 		, stuckTimer(0)
@@ -20,10 +20,10 @@ namespace PTAInamespace
 		, stuckRandY(0)
 		, moving(false)
 	{
-		myPathFinder = new PTAInamespace::PathFindingApp();
+		myPathFinder = new PathFindingApp();
 	}
 
-	void PTAI::updateCurrentWaypoint()
+	void JohnDoeController::updateCurrentWaypoint()
 	{
 		if (myPathFinder->getWaypoints().size() > 0)
 		{
@@ -39,7 +39,7 @@ namespace PTAInamespace
 		}
 	}
 
-	void PTAI::setNewPath()
+	void JohnDoeController::setNewPath()
 	{
 		if (m_gameObjectToGo != nullptr)
 		{
@@ -49,11 +49,11 @@ namespace PTAInamespace
 		}
 	}
 
-	PTAI::~PTAI(void)
+	JohnDoeController::~JohnDoeController(void)
 	{
 	}
 
-	void PTAI::onMessage(const std::string& msgName, yam2d::Object* eventObject)
+	void JohnDoeController::onMessage(const std::string& msgName, yam2d::Object* eventObject)
 	{
 		// Call onMessage to base class
 		CharacterController::onMessage(msgName, eventObject);
@@ -75,7 +75,7 @@ namespace PTAInamespace
 		}
 	}
 
-	void PTAI::setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
+	void JohnDoeController::setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
 	{
 		if (gameObjectToGo == 0)
 		{
@@ -89,7 +89,7 @@ namespace PTAInamespace
 		preferPickItem();
 	}
 
-	void PTAI::resetMoveTargetObject()
+	void JohnDoeController::resetMoveTargetObject()
 	{
 		m_gameObjectToGo = 0;
 		m_reachTolerance = 0.0f;
@@ -97,14 +97,14 @@ namespace PTAInamespace
 		stop();
 	}
 
-	void PTAI::setTargetToShoot(const yam2d::GameObject* gameObjectToShoot, float predictionDistance, float aimTolerance)
+	void JohnDoeController::setTargetToShoot(const yam2d::GameObject* gameObjectToShoot, float predictionDistance, float aimTolerance)
 	{
 		m_gameObjectToShoot = gameObjectToShoot;
 		m_predictionDistance = predictionDistance;
 		m_aimTolerance = aimTolerance;
 	}
 
-	void PTAI::resetTargetToShoot()
+	void JohnDoeController::resetTargetToShoot()
 	{
 		m_gameObjectToShoot = 0;
 		m_predictionDistance = 0.0f;
@@ -112,20 +112,20 @@ namespace PTAInamespace
 	}
 
 	// This virtual method is automatically called by map/layer, when update is called from main.cpp
-	void PTAI::update(float deltaTime)
+	void JohnDoeController::update(float deltaTime)
 	{
-		uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
-
-		for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
-		{
-			size_t posX = myPathFinder->getWaypoints()[i].x;
-			size_t posY = myPathFinder->getWaypoints()[i].y;
-			if (debugLayer != nullptr)
-			{
-				// debug draw testi
-				debugLayer->setPixel(posX, posY, RED_PIXEL);
-			}
-		}
+		//uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
+		//
+		//for (int i = 0; i < myPathFinder->getWaypoints().size(); ++i)
+		//{
+		//	size_t posX = myPathFinder->getWaypoints()[i].x;
+		//	size_t posY = myPathFinder->getWaypoints()[i].y;
+		//	if (debugLayer != nullptr)
+		//	{
+		//		// debug draw testi
+		//		debugLayer->setPixel(posX, posY, RED_PIXEL);
+		//	}
+		//}
 
 		// Call update to base class
 		CharacterController::update(deltaTime);
@@ -179,7 +179,7 @@ namespace PTAInamespace
 		updateCurrentWaypoint();
 	}
 
-	void PTAI::stuckCheck()
+	void JohnDoeController::stuckCheck()
 	{
 		if (stuckTimer == 0)
 		{
@@ -213,24 +213,24 @@ namespace PTAInamespace
 		}
 	}
 
-	float PTAI::getDistanceToDestination() const
+	float JohnDoeController::getDistanceToDestination() const
 	{
 		return m_distanceToDestination;
 	}
 
-	void PTAI::setDebugLayer(AIMapLayer* layer)
-	{
-		this->debugLayer = layer;
-	}
+	//void JohnDoeController::setDebugLayer(AIMapLayer* layer)
+	//{
+	//	this->debugLayer = layer;
+	//}
 
-	void PTAI::setMoveSpeedLayer(AIMapLayer* layer)
+	void JohnDoeController::setMoveSpeedLayer(AIMapLayer* layer)
 	{
 		this->moveSpeedLayer = layer;
 
 		myPathFinder->setMoveLayer(moveSpeedLayer);
 	}
 
-	void PTAI::startMoving()
+	void JohnDoeController::startMoving()
 	{
 		moving = true;
 	}

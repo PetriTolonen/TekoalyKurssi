@@ -8,7 +8,8 @@
 #include <SpriteSheet.h>
 #include <slm/vec2.h>
 #include <AIMapLayer.h>
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	class PathFindingApp : public yam2d::Object
 	{

@@ -1,5 +1,6 @@
 #include "ClosedList.h"
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	ClosedList::ClosedList()
 	{

@@ -1,5 +1,6 @@
 #include "OpenList.h"
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	OpenList::OpenList()
 	{

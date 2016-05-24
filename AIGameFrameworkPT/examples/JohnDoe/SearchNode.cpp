@@ -1,5 +1,6 @@
 #include "SearchNode.h"
-namespace PTAInamespace
+
+namespace JohnDoe
 {
 	SearchNode::SearchNode(const Position& curPos, float h, float deltaG, SearchNode* prev) : prevNode(0), pos(curPos), G(0), H(h)
 	{

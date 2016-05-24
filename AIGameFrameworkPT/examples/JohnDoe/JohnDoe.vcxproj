@@ -75,10 +75,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ClosedList.h" />
     <ClInclude Include="JohnDoe.h" />
+    <ClInclude Include="OpenList.h" />
+    <ClInclude Include="PathFindingApp.h" />
+    <ClInclude Include="PTAI.h" />
+    <ClInclude Include="SearchLevel.h" />
+    <ClInclude Include="SearchNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClosedList.cpp" />
     <ClCompile Include="JohnDoe.cpp" />
+    <ClCompile Include="OpenList.cpp" />
+    <ClCompile Include="PathFindingApp.cpp" />
+    <ClCompile Include="PTAI.cpp" />
+    <ClCompile Include="SearchLevel.cpp" />
+    <ClCompile Include="SearchNode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,5 @@
-#include "ExampleBehaviours.h"
+#include "GameEvents.h"
+#include "PlayerController.h"
 #include "JoystickController.h"
 #include "PathFindingApp.h"
 #include "slm/vec2.h"
@@ -7,18 +8,18 @@
 #include <time.h>       /* time */
 #include "GameObject.h"
 
-namespace PTAInamespace
+namespace JohnDoe
 {
-	class PTAI : public CharacterController
+	class JohnDoeController : public CharacterController
 	{
 	public:
-		PTAI(yam2d::GameObject* owner, GameController* gameController, BotType botType);
+		JohnDoeController(yam2d::GameObject* owner, GameController* gameController, BotType botType);
 
 		void updateCurrentWaypoint();
 
 		void setNewPath();
 
-		virtual ~PTAI(void);
+		virtual ~JohnDoeController(void);
 
 		virtual void onMessage(const std::string& msgName, yam2d::Object* eventObject);
 
@@ -37,7 +38,7 @@ namespace PTAInamespace
 
 		float getDistanceToDestination() const;
 
-		void setDebugLayer(AIMapLayer* layer);
+		//void setDebugLayer(AIMapLayer* layer);
 
 		void setMoveSpeedLayer(AIMapLayer* layer);
 
@@ -57,10 +58,10 @@ namespace PTAInamespace
 		float m_predictionDistance;
 		float m_aimTolerance;
 
-		AIMapLayer* debugLayer;
+		//AIMapLayer* debugLayer;
 		AIMapLayer* moveSpeedLayer;
 
-		yam2d::Ref<PTAInamespace::PathFindingApp> myPathFinder;
+		yam2d::Ref<PathFindingApp> myPathFinder;
 
 		int indexOfCurrentWaypoint;
 		int stuckTimer;
