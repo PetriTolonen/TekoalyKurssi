@@ -14,6 +14,7 @@
     <ProjectGuid>{4AD05824-0D1A-444D-97E7-EC7A31C1B606}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>JohnDoe</RootNamespace>
+    <ProjectName>PetriTolonen</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,7 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ClosedList.h" />
-    <ClInclude Include="JohnDoe.h" />
+    <ClInclude Include="PetriTolonen.h" />
     <ClInclude Include="OpenList.h" />
     <ClInclude Include="PathFindingApp.h" />
     <ClInclude Include="PTAI.h" />
@@ -85,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClosedList.cpp" />
-    <ClCompile Include="JohnDoe.cpp" />
+    <ClCompile Include="PetriTolonen.cpp" />
     <ClCompile Include="OpenList.cpp" />
     <ClCompile Include="PathFindingApp.cpp" />
     <ClCompile Include="PTAI.cpp" />

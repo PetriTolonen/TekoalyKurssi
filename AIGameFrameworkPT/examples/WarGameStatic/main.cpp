@@ -5,7 +5,7 @@
 // Copyright (c) 2016 Mikko Romppainen. All Rights reserved.
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-#include <JohnDoe.h>
+#include <PetriTolonen.h>
 #include <MikkoRomppainen.h>
 #include <PassCourse.h>
 #include "GameApp.h"
@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
 	app->disableLayer("ObjectSpawns");
 	app->disableLayer("GroundTypeColliders");
 	app->disableLayer("GroundMoveSpeed");
-	app->setDefaultGame("Level1.tmx", "PassCourse", "JohnDoe", "JohnDoe", 4);
+	app->setDefaultGame("Level1.tmx", "PassCourse", "PetriTolonen", "PetriTolonen", 4);
 	app->setPlayer1Controller(PassCourse::createNewPlayer());
-	app->setPlayer2Controller(JohnDoe::createNewPlayer());
+	app->setPlayer2Controller(PetriTolonen::createNewPlayer());
 
 	return app->run();
 }

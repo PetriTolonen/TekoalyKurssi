@@ -1,6 +1,6 @@
 #include "SearchNode.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	SearchNode::SearchNode(const Position& curPos, float h, float deltaG, SearchNode* prev) : prevNode(0), pos(curPos), G(0), H(h)
 	{

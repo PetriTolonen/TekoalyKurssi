@@ -9,7 +9,7 @@
 #include <slm/vec2.h>
 #include <AIMapLayer.h>
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	class PathFindingApp : public yam2d::Object
 	{

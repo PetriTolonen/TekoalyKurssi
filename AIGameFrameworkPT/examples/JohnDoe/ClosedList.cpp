@@ -1,6 +1,6 @@
 #include "ClosedList.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	ClosedList::ClosedList()
 	{

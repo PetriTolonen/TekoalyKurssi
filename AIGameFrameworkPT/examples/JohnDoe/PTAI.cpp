@@ -1,8 +1,8 @@
 #include "PTAI.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
-	JohnDoeController::JohnDoeController(yam2d::GameObject* owner, GameController* gameController, BotType botType)
+	PetriTolonenController::PetriTolonenController(yam2d::GameObject* owner, GameController* gameController, BotType botType)
 		: CharacterController(owner, gameController, botType)
 		, m_gameObjectToGo(0)
 		, m_reachTolerance(0.0f)
@@ -23,7 +23,7 @@ namespace JohnDoe
 		myPathFinder = new PathFindingApp();
 	}
 
-	void JohnDoeController::updateCurrentWaypoint()
+	void PetriTolonenController::updateCurrentWaypoint()
 	{
 		if (myPathFinder->getWaypoints().size() > 0)
 		{
@@ -39,7 +39,7 @@ namespace JohnDoe
 		}
 	}
 
-	void JohnDoeController::setNewPath()
+	void PetriTolonenController::setNewPath()
 	{
 		if (m_gameObjectToGo != nullptr)
 		{
@@ -49,11 +49,11 @@ namespace JohnDoe
 		}
 	}
 
-	JohnDoeController::~JohnDoeController(void)
+	PetriTolonenController::~PetriTolonenController(void)
 	{
 	}
 
-	void JohnDoeController::onMessage(const std::string& msgName, yam2d::Object* eventObject)
+	void PetriTolonenController::onMessage(const std::string& msgName, yam2d::Object* eventObject)
 	{
 		// Call onMessage to base class
 		CharacterController::onMessage(msgName, eventObject);
@@ -75,7 +75,7 @@ namespace JohnDoe
 		}
 	}
 
-	void JohnDoeController::setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
+	void PetriTolonenController::setMoveTargetObject(const yam2d::GameObject* gameObjectToGo, float reachTolerance)
 	{
 		if (gameObjectToGo == 0)
 		{
@@ -89,7 +89,7 @@ namespace JohnDoe
 		preferPickItem();
 	}
 
-	void JohnDoeController::resetMoveTargetObject()
+	void PetriTolonenController::resetMoveTargetObject()
 	{
 		m_gameObjectToGo = 0;
 		m_reachTolerance = 0.0f;
@@ -97,14 +97,14 @@ namespace JohnDoe
 		stop();
 	}
 
-	void JohnDoeController::setTargetToShoot(const yam2d::GameObject* gameObjectToShoot, float predictionDistance, float aimTolerance)
+	void PetriTolonenController::setTargetToShoot(const yam2d::GameObject* gameObjectToShoot, float predictionDistance, float aimTolerance)
 	{
 		m_gameObjectToShoot = gameObjectToShoot;
 		m_predictionDistance = predictionDistance;
 		m_aimTolerance = aimTolerance;
 	}
 
-	void JohnDoeController::resetTargetToShoot()
+	void PetriTolonenController::resetTargetToShoot()
 	{
 		m_gameObjectToShoot = 0;
 		m_predictionDistance = 0.0f;
@@ -112,7 +112,7 @@ namespace JohnDoe
 	}
 
 	// This virtual method is automatically called by map/layer, when update is called from main.cpp
-	void JohnDoeController::update(float deltaTime)
+	void PetriTolonenController::update(float deltaTime)
 	{
 		//uint8_t RED_PIXEL[4] = { 0xff, 0x00, 0x00, 0x50 };
 		//
@@ -179,7 +179,7 @@ namespace JohnDoe
 		updateCurrentWaypoint();
 	}
 
-	void JohnDoeController::stuckCheck()
+	void PetriTolonenController::stuckCheck()
 	{
 		if (stuckTimer == 0)
 		{
@@ -213,24 +213,24 @@ namespace JohnDoe
 		}
 	}
 
-	float JohnDoeController::getDistanceToDestination() const
+	float PetriTolonenController::getDistanceToDestination() const
 	{
 		return m_distanceToDestination;
 	}
 
-	//void JohnDoeController::setDebugLayer(AIMapLayer* layer)
+	//void PetriTolonenController::setDebugLayer(AIMapLayer* layer)
 	//{
 	//	this->debugLayer = layer;
 	//}
 
-	void JohnDoeController::setMoveSpeedLayer(AIMapLayer* layer)
+	void PetriTolonenController::setMoveSpeedLayer(AIMapLayer* layer)
 	{
 		this->moveSpeedLayer = layer;
 
 		myPathFinder->setMoveLayer(moveSpeedLayer);
 	}
 
-	void JohnDoeController::startMoving()
+	void PetriTolonenController::startMoving()
 	{
 		moving = true;
 	}

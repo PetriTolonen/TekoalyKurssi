@@ -9,115 +9,22 @@
 
 #include "PTAI.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
-	//class JohnDoePlayerr : public CharacterController
-	//{
-	//public:
-	//	JohnDoePlayerr(yam2d::GameObject* owner, GameController* gameController, BotType botType)
-	//		: CharacterController(owner, gameController, botType)
-	//	{
-	//	}
-
-	//	virtual ~JohnDoePlayerr(void)
-	//	{
-	//	}
-
-	//	virtual void onMessage(const std::string& msgName, yam2d::Object* eventObject)
-	//	{
-	//		// Call onMessage to base class
-	//		CharacterController::onMessage(msgName, eventObject);
-	//		// TODO: handle message...
-	//	}
-
-	//	// This virtual method is automatically called byt map/layer, when update is called from main.cpp
-	//	virtual void update(float deltaTime)
-	//	{
-	//		// Call update to base class
-	//		CharacterController::update(deltaTime);
-	//		// TODO: Update...
-	//	}
-
-	//private:
-
-	//};
-
-	//	class JohnDoePlayer : public PlayerController
-	//	{
-	//	private:
-	//		std::string m_myTeamName;
-	//		std::vector< yam2d::Ref<JohnDoePlayerr> > m_myAIControllers;
-	//	public:
-	//		JohnDoePlayer()
-	//			: PlayerController()
-	//		{
-	//		}
-	//
-	//		virtual ~JohnDoePlayer()
-	//		{
-	//		}
-	//
-	//		virtual void setMyTeamName(std::string& teamName)
-	//		{
-	//			m_myTeamName = teamName;
-	//		}
-	//
-	//		virtual CharacterController* createPlayerCharacterController(GameController* gameController, yam2d::GameObject* ownerGameObject, const std::string& playerName, BotType type)
-	//		{
-	//			if (playerName == "JohnDoe")
-	//			{
-	//				JohnDoePlayerr* myAI = new JohnDoePlayerr(ownerGameObject, gameController, type);
-	//				m_myAIControllers.push_back(myAI);
-	//				return myAI;
-	//			}
-	//
-	//			return 0;
-	//		}
-	//
-	//		virtual void onGameStarted(GameEnvironmentInfoProvider* environmentInfo)
-	//		{
-	//		}
-	//
-	//		virtual void onGameOver(GameEnvironmentInfoProvider* environmentInfo, const std::string& gameResultString)
-	//		{
-	//			yam2d::esLogMessage("onGameOver: %s wins!", gameResultString.c_str());
-	//
-	//		}
-	//
-	//		virtual void onUpdate(GameEnvironmentInfoProvider* environmentInfo, float deltaTime)
-	//		{
-	//		}
-	//
-	//		virtual void onGameEvent(GameEnvironmentInfoProvider* environmentInfo, const std::string& eventName, yam2d::Object* eventObject)
-	//		{
-	//		}
-	//
-	//		virtual void onGameObjectEvent(GameEnvironmentInfoProvider* environmentInfo, yam2d::GameObject* gameObject, const std::string& eventName, yam2d::Object* eventObject)
-	//		{
-	//		}
-	//	};
-	//
-	//
-	//	PlayerController* createNewPlayer()
-	//	{
-	//		return new JohnDoePlayer();
-	//	}
-	//}
-
-	class JohnDoePlayer : public PlayerController
+	class PetriTolonenPlayer : public PlayerController
 	{
 	private:
 		std::string m_myTeamName;
-		std::vector< yam2d::Ref<JohnDoe::JohnDoeController> > m_MyAIControllers;
+		std::vector< yam2d::Ref<PetriTolonen::PetriTolonenController> > m_MyAIControllers;
 		std::vector< yam2d::Ref<JoystickController> > m_joystickControllers;
 
 	public:
-		JohnDoePlayer()
+		PetriTolonenPlayer()
 			: PlayerController()
 		{
 		}
 
-		virtual ~JohnDoePlayer()
+		virtual ~PetriTolonenPlayer()
 		{
 		}
 
@@ -145,9 +52,9 @@ namespace JohnDoe
 				return new CharacterController(ownerGameObject, gameController, type);
 			}
 
-			if (playerName == "JohnDoe")
+			if (playerName == "PetriTolonen")
 			{
-				JohnDoeController* PtAI = new JohnDoeController(ownerGameObject, gameController, type);
+				PetriTolonenController* PtAI = new PetriTolonenController(ownerGameObject, gameController, type);
 				m_MyAIControllers.push_back(PtAI);
 				return PtAI;
 			}
@@ -364,6 +271,6 @@ namespace JohnDoe
 
 	PlayerController* createNewPlayer()
 	{
-		return new JohnDoePlayer();
+		return new PetriTolonenPlayer();
 	}
 };

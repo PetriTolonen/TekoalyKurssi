@@ -1,6 +1,6 @@
-
+#pragma once
 class PlayerController;
-namespace JohnDoe
+namespace PetriTolonen
 {
 	PlayerController* createNewPlayer();
 }

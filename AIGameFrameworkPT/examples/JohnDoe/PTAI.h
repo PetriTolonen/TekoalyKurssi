@@ -8,18 +8,18 @@
 #include <time.h>       /* time */
 #include "GameObject.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
-	class JohnDoeController : public CharacterController
+	class PetriTolonenController : public CharacterController
 	{
 	public:
-		JohnDoeController(yam2d::GameObject* owner, GameController* gameController, BotType botType);
+		PetriTolonenController(yam2d::GameObject* owner, GameController* gameController, BotType botType);
 
 		void updateCurrentWaypoint();
 
 		void setNewPath();
 
-		virtual ~JohnDoeController(void);
+		virtual ~PetriTolonenController(void);
 
 		virtual void onMessage(const std::string& msgName, yam2d::Object* eventObject);
 

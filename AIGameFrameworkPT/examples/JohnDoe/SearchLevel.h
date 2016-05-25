@@ -7,7 +7,7 @@
 #include "slm/vec2.h"
 #include <AIMapLayer.h>
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	namespace
 	{

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JohnDoe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ClosedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,11 +33,11 @@
     <ClInclude Include="SearchNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PetriTolonen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="JohnDoe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ClosedList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SearchNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PetriTolonen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

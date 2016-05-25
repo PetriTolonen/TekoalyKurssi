@@ -1,7 +1,7 @@
 #pragma once
 #include <algorithm>
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	typedef std::pair<int, int> Position;
 

@@ -9,7 +9,7 @@
 #include "SearchLevel.h"
 #include "SearchNode.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	//namespace
 	//{

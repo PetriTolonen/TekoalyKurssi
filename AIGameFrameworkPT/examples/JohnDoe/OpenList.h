@@ -2,7 +2,7 @@
 #include "SearchNode.h"
 #include <vector>
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	class OpenList
 	{

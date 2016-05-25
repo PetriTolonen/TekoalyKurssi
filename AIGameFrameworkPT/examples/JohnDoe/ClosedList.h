@@ -2,7 +2,7 @@
 
 #include "SearchNode.h"
 #include <map>
-namespace JohnDoe
+namespace PetriTolonen
 {
 	class ClosedList
 	{

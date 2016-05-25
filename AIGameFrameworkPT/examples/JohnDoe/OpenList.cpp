@@ -1,6 +1,6 @@
 #include "OpenList.h"
 
-namespace JohnDoe
+namespace PetriTolonen
 {
 	OpenList::OpenList()
 	{

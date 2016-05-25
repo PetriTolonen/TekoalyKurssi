@@ -1,6 +1,6 @@
 teamIndex:0
 teamIndex:1
-Loading of level "Level1.tmx" okay! Size: 40x40 Load time: 1.17
+Loading of level "Level1.tmx" okay! Size: 40x40 Load time: 0.75
 ObjectSpawned: gameObjectType=HomeBase
 ObjectSpawned: gameObjectType=Soldier
 ObjectSpawned: gameObjectType=Robot
@@ -16,13 +16,18 @@ onGameStarted
 onGameStarted
 Other team picked item. Stop Moving and Shoot enemy.
 ItemPicked: gameObjectType=Dynamite, team=1
-Soldier(team=0) TakingDamage: fromObject=Missile. New health: 50.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 50.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 90.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 50.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 85.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 80.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 75.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 70.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
+Soldier(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 65.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 60.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 55.0
@@ -39,195 +44,58 @@ Robot(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
 Robot(team=0) ZeroHealth.
 ObjectDeleted: gameObjectType=Robot
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 90.0
 Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 95.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 85.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 80.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 75.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 70.0
 Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 90.0
 Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 85.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 80.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 75.0
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 95.0
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 90.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 70.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 65.0
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 85.0
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 80.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 60.0
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=1) ZeroHealth.
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 55.0
+ObjectDeleted: gameObjectType=Soldier
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 75.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 50.0
+Robot(team=0) TakingDamage: fromObject=Bullet. New health: 70.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 65.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 60.0
+Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 45.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 55.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 50.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 45.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 40.0
 Robot(team=0) TakingDamage: fromObject=Bullet. New health: 35.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 30.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 25.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 20.0
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 80.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 15.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 10.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 5.0
-Robot(team=0) TakingDamage: fromObject=Bullet. New health: 0.0
-Robot(team=0) ZeroHealth.
-ObjectDeleted: gameObjectType=Robot
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 75.0
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 70.0
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 65.0
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 60.0
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 55.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 50.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 45.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
 Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 40.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
 Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 35.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 30.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 25.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 20.0
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
-HomeBase collided
+Soldier(team=1) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=1) ZeroHealth.
 Item dropped. Stop Shooting and Chase Dynamite.
 ItemDropped: gameObjectType=Dynamite
-ObjectDeleted: gameObjectType=Dynamite
-Soldier(team=0) ZeroHealth.
-Soldier(team=0) ZeroHealth.
-ObjectDeleted: gameObjectType=HomeBase
 ObjectDeleted: gameObjectType=Soldier
+My team picked item. Chase enemy HomeBase.
+ItemPicked: gameObjectType=Dynamite, team=0
+Robot(team=0) TakingDamage: fromObject=Missile. New health: 0.0
+Robot(team=0) ZeroHealth.
+Item dropped. Stop Shooting and Chase Dynamite.
+ItemDropped: gameObjectType=Dynamite
+ObjectDeleted: gameObjectType=Robot
+My team picked item. Chase enemy HomeBase.
+ItemPicked: gameObjectType=Dynamite, team=0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=0) ZeroHealth.
 ObjectDeleted: gameObjectType=Soldier
-onGameOver: JohnDoe wins!
-onGameOver: JohnDoe wins!
-Soldier(team=1) TakingDamage: fromObject=Bullet. New health: 15.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 50.0
+Soldier(team=0) TakingDamage: fromObject=Missile. New health: 0.0
+Soldier(team=0) ZeroHealth.
+Item dropped. Stop Shooting and Chase Dynamite.
+ItemDropped: gameObjectType=Dynamite
+ObjectDeleted: gameObjectType=Soldier
+onGameOver: PetriTolonen wins!
+onGameOver: PetriTolonen wins!
 ObjectDeleted: gameObjectType=GameOverText
